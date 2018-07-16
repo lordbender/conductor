@@ -78,9 +78,11 @@ class Workflow extends React.Component {
 
     const { location: { query: { workflowTypes = '', status = '', q, h, start } = {} } = {} } = props;
 
+    const search = q == null || q == 'undefined' || q == '' ? '' : q;
+
     this.state = {
       start: !isNaN(start) ? parseInt(start) : 0,
-      search: q == null || q == 'undefined' || q == '' ? '' : q,
+      search,
       status: status.split(','),
       workflowTypes: workflowTypes.split(','),
       h: isNaN(h) ? '' : h,
@@ -123,18 +125,13 @@ class Workflow extends React.Component {
     this.refreshResults();
   }
 
-  searchBtnClick() {
-    this.state.update = true;
-    this.refreshResults();
-  }
-
-  refreshResults() {
+  refreshResults = () => {
     if (this.state.update) {
       this.state.update = false;
       this.urlUpdate();
       this.doDispatch();
     }
-  }
+  };
 
   urlUpdate() {
     let q = this.state.search;
@@ -163,18 +160,6 @@ class Workflow extends React.Component {
     await this.props.searchWorkflows(query.join(' AND '), search, h, fullstr, start);
   }
 
-  workflowTypeChange(workflowTypes) {
-    this.state.update = true;
-    this.state.workflowTypes = workflowTypes;
-    this.refreshResults();
-  }
-
-  statusChange(status) {
-    this.state.update = true;
-    this.state.status = status;
-    this.refreshResults();
-  }
-
   nextPage() {
     this.state.start = 100 + parseInt(this.state.start);
     this.state.update = true;
@@ -190,39 +175,20 @@ class Workflow extends React.Component {
     this.refreshResults();
   }
 
-  searchChange(e) {
-    let val = e.target.value;
-    this.setState({ search: val });
-  }
-
-  hourChange(e) {
-    this.state.update = true;
-    this.state.h = e.target.value;
-    this.refreshResults();
-  }
-
-  keyPress(e) {
+  keyPress = e => {
     if (e.key == 'Enter') {
       this.state.update = true;
       var q = e.target.value;
       this.setState({ search: q });
       this.refreshResults();
     }
-  }
-
-  prefChange(e) {
-    this.setState({
-      fullstr: e.target.checked
-    });
-    this.state.update = true;
-    this.refreshResults();
-  }
+  };
 
   render() {
     const {
       data: { hits = [], totalHits = 0 }
     } = this.props;
-    const { workflows, status, search, start = parseInt(start) } = this.state;
+    const { workflows, status, search, start = parseInt(start), h, workflowTypes, fullstr } = this.state;
 
     const hitsLength = hits.length;
 
@@ -253,32 +219,39 @@ class Workflow extends React.Component {
                   <Input
                     type="input"
                     placeholder="Search"
-                    groupClassName=""
-                    ref="search"
+                    onChange={e => {
+                      this.setState({ search: e.target.value });
+                      this.refreshResults();
+                    }}
                     value={search}
-                    labelClassName=""
                     onKeyPress={this.keyPress}
-                    onChange={this.searchChange}
                   />
                   &nbsp;<i className="fa fa-angle-up fa-1x" />&nbsp;&nbsp;<label className="small nobold">
                     Free Text Query
                   </label>
                   &nbsp;&nbsp;<input
                     type="checkbox"
-                    checked={this.state.fullstr}
-                    onChange={this.prefChange}
-                    ref="fullstr"
+                    checked={fullstr}
+                    onChange={e => {
+                      this.setState({
+                        fullstr: e.target.checked,
+                        update: true
+                      });
+                      this.refreshResults();
+                    }}
                   />
                   <label className="small nobold">&nbsp;Search for entire string</label>
                 </Col>
                 <Col md={4}>
                   <Typeahead
-                    ref="workflowTypes"
-                    onChange={this.workflowTypeChange}
+                    onChange={workflowTypes => {
+                      this.setState({ workflowTypes, update: true });
+                      this.refreshResults();
+                    }}
                     options={workflowNames}
                     placeholder="Filter by workflow type"
                     multiple={true}
-                    selected={this.state.workflowTypes}
+                    selected={workflowTypes}
                   />
                   &nbsp;<i className="fa fa-angle-up fa-1x" />&nbsp;&nbsp;<label className="small nobold">
                     Filter by Workflow Type
@@ -286,11 +259,13 @@ class Workflow extends React.Component {
                 </Col>
                 <Col md={2}>
                   <Typeahead
-                    ref="status"
-                    onChange={this.statusChange}
+                    onChange={status => {
+                      this.setState({ update: true, status });
+                      this.refreshResults();
+                    }}
                     options={statusList}
                     placeholder="Filter by status"
-                    selected={this.state.status}
+                    selected={status}
                     multiple={true}
                   />
                   &nbsp;<i className="fa fa-angle-up fa-1x" />&nbsp;&nbsp;<label className="small nobold">
@@ -301,16 +276,19 @@ class Workflow extends React.Component {
                   <Input
                     className="number-input"
                     type="text"
-                    ref="h"
                     groupClassName="inline"
-                    labelClassName=""
-                    label=""
-                    value={this.state.h}
-                    onChange={this.hourChange}
+                    value={h}
+                    onChange={e => {
+                      this.setState({ update: true, h: e.target.value });
+                      this.refreshResults();
+                    }}
                   />
                   &nbsp;&nbsp;&nbsp;<Button
                     bsStyle="success"
-                    onClick={this.searchBtnClick}
+                    onClick={() => {
+                      this.setState({ update: true });
+                      this.refreshResults();
+                    }}
                     className="search-label btn"
                   >
                     <i className="fa fa-search" />&nbsp;&nbsp;Search
@@ -328,14 +306,20 @@ class Workflow extends React.Component {
           Total Workflows Found: <b>{totalHits}</b>, Displaying {this.state.start} <b>to</b> {max}
         </span>
         <span style={{ float: 'right' }}>
-          {parseInt(this.state.start) >= 100 ? (
-            <a onClick={this.prevPage}>
+          {start >= 100 ? (
+            <a
+              onClick={() => {
+                const helper = start - 100;
+                this.setState({ update: true, start: helper < 0 ? 0 : helper });
+                this.refreshResults();
+              }}
+            >
               <i className="fa fa-backward" />&nbsp;Previous Page
             </a>
           ) : (
             ''
           )}
-          {parseInt(this.state.start) + 100 <= totalHits ? (
+          {start + 100 <= totalHits ? (
             <a onClick={this.nextPage}>
               &nbsp;&nbsp;Next Page&nbsp;<i className="fa fa-forward" />
             </a>
