@@ -91,7 +91,7 @@ class Workflow extends React.Component {
   }
 
   componentWillMount() {
-    this.props.dispatch(getWorkflowDefs());
+    this.props.getWorkflowDefs();
     this.doDispatch();
   }
 
@@ -162,23 +162,19 @@ class Workflow extends React.Component {
     );
   }
 
-  doDispatch() {
-    let search = '';
-    if (this.state.search != '') {
-      search = this.state.search;
-    }
-    let h = this.state.h;
+  async doDispatch() {
+    const { workflowTypes, status, h, fullstr, start, search = '' } = this.state;
+
     let query = [];
 
-    if (this.state.workflowTypes.length > 0) {
-      query.push('workflowType IN (' + this.state.workflowTypes.join(',') + ') ');
+    if (workflowTypes.length > 0) {
+      query.push(`'workflowType IN (${workflowTypes.join(',')})`);
     }
-    if (this.state.status.length > 0) {
-      query.push('status IN (' + this.state.status.join(',') + ') ');
+    if (status.length > 0) {
+      query.push(`'status IN (${status.join(',')})`);
     }
-    this.props.dispatch(
-      searchWorkflows(query.join(' AND '), search, this.state.h, this.state.fullstr, this.state.start)
-    );
+
+    await this.props.searchWorkflows(query.join(' AND '), search, h, fullstr, start);
   }
 
   workflowTypeChange(workflowTypes) {
@@ -413,4 +409,13 @@ class Workflow extends React.Component {
   }
 }
 
-export default connect(state => state.workflow)(Workflow);
+export default connect(
+  state => ({
+    workflow: state.workflow,
+    data: state.workflow.data
+  }),
+  {
+    searchWorkflows,
+    getWorkflowDefs
+  }
+)(Workflow);
