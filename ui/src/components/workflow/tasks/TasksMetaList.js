@@ -1,25 +1,23 @@
-import React  from 'react';
+import React from 'react';
 import { Input, Popover, OverlayTrigger } from 'react-bootstrap';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { connect } from 'react-redux';
 import { getTaskDefs } from '../../../actions/WorkflowActions';
 
-const TaskMetaList = React.createClass({
-  getInitialState() {
-    return {
-      name: '',
-      version: '',
-      taskDefs: []
-    };
-  },
+class TaskMetaList extends React.Component {
+  state = {
+    name: '',
+    version: '',
+    taskDefs: []
+  };
 
   componentWillMount() {
     this.props.dispatch(getTaskDefs());
-  },
+  }
 
   componentWillReceiveProps(nextProps) {
     this.state.taskDefs = nextProps.taskDefs;
-  },
+  }
 
   render() {
     const { taskDefs } = this.state;
@@ -139,5 +137,5 @@ const TaskMetaList = React.createClass({
       </div>
     );
   }
-});
+}
 export default connect(state => state.workflow)(TaskMetaList);
