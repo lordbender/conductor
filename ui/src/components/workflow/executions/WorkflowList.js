@@ -72,45 +72,40 @@ function miniDetails(cell, row) {
   );
 }
 
-const Workflow = React.createClass({
-  getInitialState() {
-    let workflowTypes = this.props.location.query.workflowTypes;
-    if (workflowTypes != null && workflowTypes != '') {
-      workflowTypes = workflowTypes.split(',');
-    } else {
-      workflowTypes = [];
-    }
-    let status = this.props.location.query.status;
-    if (status != null && status != '') {
-      status = status.split(',');
-    } else {
-      status = [];
-    }
-    let search = this.props.location.query.q;
-    if (search == null || search == 'undefined' || search == '') {
-      search = '';
-    }
-    let st = this.props.location.query.start;
-    let start = 0;
-    if (!isNaN(st)) {
-      start = parseInt(st);
-    }
+class Workflow extends React.Component {
+  state = {
+    search: '',
+    workflowTypes: [],
+    status: [],
+    h: '',
+    workflows: [],
+    update: true,
+    fullstr: true,
+    start: null
+  };
 
-    return {
-      search: search,
-      workflowTypes: workflowTypes,
-      status: status,
-      h: this.props.location.query.h,
+  constructor(props) {
+    super(props);
+
+    const { location: { query: { workflowTypes = '', status = '', q, h, start } = {} } = {} } = props;
+
+    this.setState({
+      start: !isNaN(start) ? parseInt(start) : 0,
+      search: q == null || q == 'undefined' || q == '' ? q : '',
+      status: status.split(','),
+      workflowTypes: workflowTypes.split(','),
+      h,
       workflows: [],
       update: true,
-      fullstr: true,
-      start: start
-    };
-  },
+      fullstr: true
+    });
+  }
+
   componentWillMount() {
     this.props.dispatch(getWorkflowDefs());
     this.doDispatch();
-  },
+  }
+
   componentWillReceiveProps(nextProps) {
     let workflowDefs = nextProps.workflows;
     workflowDefs = workflowDefs ? workflowDefs : [];
@@ -142,27 +137,30 @@ const Workflow = React.createClass({
     update = update || this.state.status.join(',') != status.join(',');
 
     this.setState({
-      search: search,
-      h: h,
-      update: update,
-      status: status,
+      search,
+      h,
+      update,
+      status,
       workflows: workflowDefs,
-      start: start
+      start
     });
 
     this.refreshResults();
-  },
+  }
+
   searchBtnClick() {
     this.state.update = true;
     this.refreshResults();
-  },
+  }
+
   refreshResults() {
     if (this.state.update) {
       this.state.update = false;
       this.urlUpdate();
       this.doDispatch();
     }
-  },
+  }
+
   urlUpdate() {
     let q = this.state.search;
     let h = this.state.h;
@@ -173,7 +171,8 @@ const Workflow = React.createClass({
       null,
       '/workflow?q=' + q + '&h=' + h + '&workflowTypes=' + workflowTypes + '&status=' + status + '&start=' + start
     );
-  },
+  }
+
   doDispatch() {
     let search = '';
     if (this.state.search != '') {
@@ -191,22 +190,26 @@ const Workflow = React.createClass({
     this.props.dispatch(
       searchWorkflows(query.join(' AND '), search, this.state.h, this.state.fullstr, this.state.start)
     );
-  },
+  }
+
   workflowTypeChange(workflowTypes) {
     this.state.update = true;
     this.state.workflowTypes = workflowTypes;
     this.refreshResults();
-  },
+  }
+
   statusChange(status) {
     this.state.update = true;
     this.state.status = status;
     this.refreshResults();
-  },
+  }
+
   nextPage() {
     this.state.start = 100 + parseInt(this.state.start);
     this.state.update = true;
     this.refreshResults();
-  },
+  }
+
   prevPage() {
     this.state.start = parseInt(this.state.start) - 100;
     if (this.state.start < 0) {
@@ -214,16 +217,19 @@ const Workflow = React.createClass({
     }
     this.state.update = true;
     this.refreshResults();
-  },
+  }
+
   searchChange(e) {
     let val = e.target.value;
     this.setState({ search: val });
-  },
+  }
+
   hourChange(e) {
     this.state.update = true;
     this.state.h = e.target.value;
     this.refreshResults();
-  },
+  }
+
   keyPress(e) {
     if (e.key == 'Enter') {
       this.state.update = true;
@@ -231,14 +237,16 @@ const Workflow = React.createClass({
       this.setState({ search: q });
       this.refreshResults();
     }
-  },
+  }
+
   prefChange(e) {
     this.setState({
       fullstr: e.target.checked
     });
     this.state.update = true;
     this.refreshResults();
-  },
+  }
+
   render() {
     let wfs = [];
     let filteredWfs = [];
@@ -414,5 +422,6 @@ const Workflow = React.createClass({
       </div>
     );
   }
-});
+}
+
 export default connect(state => state.workflow)(Workflow);
