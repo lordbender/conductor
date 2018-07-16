@@ -233,33 +233,29 @@ class Workflow extends React.Component {
   }
 
   render() {
-    let wfs = [];
-    let filteredWfs = [];
+    const {
+      data: { hits = [], totalHits = 0 }
+    } = this.props;
+    const { workflows, status, search, start = parseInt(start) } = this.state;
 
-    let totalHits = 0;
-    let found = 0;
-    if (this.props.data.hits) {
-      wfs = this.props.data.hits;
-      totalHits = this.props.data.totalHits;
-      found = wfs.length;
-    }
-    let start = parseInt(this.state.start);
+    const hitsLength = hits.length;
+
     let max = start + 100;
-    if (found < 100) {
-      max = start + found;
+    if (hitsLength < 100) {
+      max = start + hitsLength;
     }
-    const workflowNames = this.state.workflows ? this.state.workflows : [];
+    const workflowNames = workflows ? workflows : [];
     const statusList = ['RUNNING', 'COMPLETED', 'FAILED', 'TIMED_OUT', 'TERMINATED', 'PAUSED'];
 
     //secondary filter to match sure we only show workflows that match the the status
-    var currentStatusArray = this.state.status;
-    if (currentStatusArray.length > 0 && wfs.length > 0) {
-      filteredWfs = wfs.filter(function(wf) {
-        return currentStatusArray.includes(wf.status); //remove wft if status doesn't match search
-      });
-    } else {
-      filteredWfs = wfs;
-    }
+    var currentStatusArray = status;
+
+    const filteredWfs =
+      currentStatusArray.length > 0 && hitsLength > 0
+        ? hits.filter(wf => {
+            return currentStatusArray.includes(wf.status); //remove wft if status doesn't match search
+          })
+        : hits;
 
     return (
       <div className="ui-content">
@@ -273,7 +269,7 @@ class Workflow extends React.Component {
                     placeholder="Search"
                     groupClassName=""
                     ref="search"
-                    value={this.state.search}
+                    value={search}
                     labelClassName=""
                     onKeyPress={this.keyPress}
                     onChange={this.searchChange}
