@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, browserHistory } from 'react-router';
+import { Link } from 'react-router';
 import { Input, Button, Panel, Popover, OverlayTrigger, ButtonGroup, Grid, Row, Col  } from 'react-bootstrap';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 import { connect } from 'react-redux';
@@ -36,7 +36,7 @@ function formatDate(cell){
 
 function miniDetails(cell, row){
     return (<ButtonGroup><OverlayTrigger trigger="click" rootClose placement="left" overlay={
-        <Popover title="Workflow Details" width={400}>
+        <Popover id="popover-workflow-list-mini-details" title="Workflow Details" width={400}>
             <span className="red">{row.reasonForIncompletion == null?'':<span>{row.reasonForIncompletion}<hr/></span>}</span>
             <b>Input</b><br/>
             <span className="small" style={{maxWidth:'400px'}}>{row.input}</span>

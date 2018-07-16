@@ -31,7 +31,7 @@ const Events = React.createClass({
     };
     function helpName() {
       return (<OverlayTrigger trigger="click" rootClose placement="bottom" overlay={
-        <Popover title='Event Handler Name' style={{ width: '300px'}}>
+        <Popover id="popover-basic-event-list-name-help" title='Event Handler Name' style={{ width: '300px'}}>
           <div className="info">
             Unique name identifying the event handler.
           </div>
@@ -41,7 +41,7 @@ const Events = React.createClass({
     function helpQueue() {
       //<i className="fa fa-question-circle"></i>
       return (<OverlayTrigger trigger="click" rootClose placement="bottom" overlay={
-        <Popover title='Event / Queue' style={{ width: '500px'}}>
+        <Popover  id="popover-basic-event-list-help-queue" title='Event / Queue' style={{ width: '500px'}}>
           <div className="info">
             <p>Name of the Queue which the handler listens to.  The supported queue systems are <b>SQS</b>  and <b>Conductor</b>.</p>
             <p>The name is prefixed by the source (sqs, conductor).  e.g. sqs:sqs_queue_name</p>
@@ -54,7 +54,7 @@ const Events = React.createClass({
     function helpCond() {
       //<i className="fa fa-question-circle"></i>
       return (<OverlayTrigger trigger="click" rootClose placement="bottom" overlay={
-        <Popover title='Condition' style={{ width: '500px'}}>
+        <Popover id="popover-basic-event-list-help-cond" title='Condition' style={{ width: '500px'}}>
           <div className="info">
             <p>An expression that can be evaluated with the payload in the queue.</p>
             <p>The Actions are executed ONLY when the expression evaluation returns True</p>
@@ -67,7 +67,7 @@ const Events = React.createClass({
     function helpActions() {
       //<i className="fa fa-question-circle"></i>
       return (<OverlayTrigger trigger="click" rootClose placement="bottom" overlay={
-        <Popover title='Actions' style={{ width: '500px'}}>
+        <Popover id="popover-basic-event-list-help-actions" title='Actions' style={{ width: '500px'}}>
           <div className="info small">
             <p>Set of actions that are taken when a message arrives with payload that matches the condition.</p>
             <p>Supported Actions are: start_workflow, complete_task and fail_task</p>
@@ -78,7 +78,7 @@ const Events = React.createClass({
     }
     function nameMaker(cell, row){
       return (<OverlayTrigger trigger="click" rootClose placement="right" overlay={
-        <Popover title={row.name} style={{ width: '500px'}}><div className="left">
+        <Popover id="popover-basic-event-list-name-maker" title={row.name} style={{ width: '500px'}}><div className="left">
           <pre>{JSON.stringify(row, null, 2)}</pre>
         </div></Popover>
       }><a>{cell}</a></OverlayTrigger>);
