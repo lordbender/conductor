@@ -80,10 +80,10 @@ class Workflow extends React.Component {
 
     this.state = {
       start: !isNaN(start) ? parseInt(start) : 0,
-      search: q || '',
+      search: q == null || q == 'undefined' || q == '' ? '' : q,
       status: status.split(','),
       workflowTypes: workflowTypes.split(','),
-      h,
+      h: isNaN(h) ? '' : h,
       workflows: [],
       update: true,
       fullstr: true
@@ -96,42 +96,28 @@ class Workflow extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    let workflowDefs = nextProps.workflows;
-    workflowDefs = workflowDefs ? workflowDefs : [];
-    workflowDefs = workflowDefs.map(workflowDef => workflowDef.name);
+    const {
+      workflows = [],
+      location: {
+        query: { q, h, start, status = '' }
+      }
+    } = nextProps;
 
-    let search = nextProps.location.query.q;
-    if (search == null || search == 'undefined' || search == '') {
-      search = '';
-    }
-    let h = nextProps.location.query.h;
-    if (isNaN(h)) {
-      h = '';
-    }
-    let start = nextProps.location.query.start;
-    if (isNaN(start)) {
-      start = 0;
-    }
-    let status = nextProps.location.query.status;
-    if (status != null && status != '') {
-      status = status.split(',');
-    } else {
-      status = [];
-    }
+    const search = q == null || q == 'undefined' || q == '' ? '' : q;
 
     let update = true;
     update = this.state.search != search;
     update = update || this.state.h != h;
     update = update || this.state.start != start;
-    update = update || this.state.status.join(',') != status.join(',');
+    update = update || this.state.status.filter(i => !status.includes(i)).length > 0;
 
     this.setState({
       search,
-      h,
+      h: isNaN(h) ? '' : h,
       update,
-      status,
-      workflows: workflowDefs,
-      start
+      status: status.split(','),
+      workflows: workflows.map(workflow => workflow.name),
+      start: isNaN(start) ? 0 : start
     });
 
     this.refreshResults();
