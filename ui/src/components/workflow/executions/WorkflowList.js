@@ -73,32 +73,21 @@ function miniDetails(cell, row) {
 }
 
 class Workflow extends React.Component {
-  state = {
-    search: '',
-    workflowTypes: [],
-    status: [],
-    h: '',
-    workflows: [],
-    update: true,
-    fullstr: true,
-    start: null
-  };
-
   constructor(props) {
     super(props);
 
     const { location: { query: { workflowTypes = '', status = '', q, h, start } = {} } = {} } = props;
 
-    this.setState({
+    this.state = {
       start: !isNaN(start) ? parseInt(start) : 0,
-      search: q == null || q == 'undefined' || q == '' ? q : '',
+      search: q || '',
       status: status.split(','),
       workflowTypes: workflowTypes.split(','),
       h,
       workflows: [],
       update: true,
       fullstr: true
-    });
+    };
   }
 
   componentWillMount() {
