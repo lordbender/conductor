@@ -5,7 +5,7 @@
   "scripts": {
     "start": "react-scripts start",
     "server": "PORT=3000 IP=localhost nodemon server/index.js",
-    "build": "react-scripts build",
+    "build": "react-scripts build && rm -rf ./server/public | true && cp -r ./build ./server/public",
     "test": "react-scripts test --env=jsdom"
   },
   "dependencies": {
