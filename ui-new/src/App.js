@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
 import HelpRoutes from 'views/Help';
+import WorkflowRoutes from 'views/Workflow';
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <HelpRoutes />
-      </BrowserRouter>
-    );
-  }
-}
+const App = () => (
+  <BrowserRouter>
+    <div>
+      <HelpRoutes />
+      <WorkflowRoutes />
+    </div>
+  </BrowserRouter>
+);
 
 export default App;

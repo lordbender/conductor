@@ -6,8 +6,8 @@ class Main {
     this.app = express();
     this.routesIndex = new RoutesIndex();
 
-    this.routes();
-    this.serve();
+    this.routes(this.app);
+    this.serve(this.app);
   }
 
   routes() {

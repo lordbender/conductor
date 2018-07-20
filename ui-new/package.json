@@ -1,11 +1,16 @@
 {
   "name": "conductor-ui",
-  "version": "0.1.0",
+  "version": "0.0.1",
   "private": true,
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:3001"
+    }
+  },
   "scripts": {
     "start": "react-scripts start",
-    "server": "PORT=3000 IP=localhost nodemon server/index.js",
-    "build": "react-scripts build && rm -rf ./server/public | true && cp -r ./build ./server/public",
+    "server": "JAVA_API_BASE_URL=http://localhost:8080 BASE_URL=/api/v1 PORT=3001 IP=localhost nodemon server/index.js",
+    "build": "react-scripts build && rm -rf ./server/public | true && mv ./build ./server/public",
     "test": "react-scripts test --env=jsdom"
   },
   "dependencies": {
@@ -14,6 +19,7 @@
     "axios": "^0.18.0",
     "express": "^4.16.3",
     "material-ui": "^1.0.0-beta.47",
+    "prop-types": "^15.6.2",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
     "react-redux": "^5.0.7",
