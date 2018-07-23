@@ -3,18 +3,11 @@ const drawerWidth = 240;
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 430,
+    minHeight: 800,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
     display: 'flex'
-  },
-  appBar: {
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen
-    })
   },
   appBarShift: {
     marginLeft: drawerWidth,
@@ -60,8 +53,7 @@ const styles = theme => ({
   },
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3
+    backgroundColor: theme.palette.background.default
   }
 });
 

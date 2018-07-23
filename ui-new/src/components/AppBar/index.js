@@ -27,8 +27,9 @@ class ButtonAppBar extends React.Component {
     open: false
   };
 
-  handleDrawerOpen = () => {
-    this.setState({ open: true });
+  handleDrawerToggle = () => {
+    const { open } = this.state;
+    this.setState({ open: !open });
   };
 
   handleDrawerClose = () => {
@@ -36,14 +37,14 @@ class ButtonAppBar extends React.Component {
   };
 
   render() {
-    const { classes } = this.props;
+    const { classes, children } = this.props;
     const { open } = this.state;
     return (
       <div className={classes.root}>
         <AppBar position="static">
           <Toolbar>
             <IconButton className={classes.menuButton} color="inherit" aria-label="Menu">
-              <MenuIcon onClick={this.handleDrawerOpen} />
+              <MenuIcon onClick={this.handleDrawerToggle} />
             </IconButton>
             <Typography variant="title" color="inherit" className={classes.flex}>
               News
@@ -51,14 +52,17 @@ class ButtonAppBar extends React.Component {
             <Button color="inherit">Login</Button>
           </Toolbar>
         </AppBar>
-        <SideNav open={open} handleDrawerOpen={this.handleDrawerOpen} handleDrawerClose={this.handleDrawerClose} />
+        <SideNav open={open} handleDrawerClose={this.handleDrawerClose}>
+          {children}
+        </SideNav>
       </div>
     );
   }
 }
 
 ButtonAppBar.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  children: PropTypes.element.isRequired
 };
 
 export default withStyles(styles)(ButtonAppBar);

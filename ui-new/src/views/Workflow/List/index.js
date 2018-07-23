@@ -2,13 +2,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import {
+  Table,
+  TableHead,
+  TableBody,
+  TableCell,
+  TableFooter,
+  TablePagination,
+  TableRow,
+  Paper
+} from '@material-ui/core';
 import TablePaginationActions from 'views/Workflow/TablePaginationActions';
 import { fetchWorkflows } from 'stores/workflow/list';
 
@@ -76,6 +79,15 @@ class List extends React.Component {
       <Paper className={classes.root}>
         <div className={classes.tableWrapper}>
           <Table className={classes.table}>
+            <TableHead>
+              <TableRow>
+                <TableCell>Dessert (100g serving)</TableCell>
+                <TableCell numeric>Calories</TableCell>
+                <TableCell numeric>Fat (g)</TableCell>
+                <TableCell numeric>Carbs (g)</TableCell>
+                <TableCell numeric>Protein (g)</TableCell>
+              </TableRow>
+            </TableHead>
             <TableBody>
               {mapped}
               {emptyRows > 0 && (

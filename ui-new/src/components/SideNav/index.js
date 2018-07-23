@@ -1,19 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
-import IconButton from '@material-ui/core/IconButton';
+import { Divider, ListItemText, ListItemIcon, ListItem, List, Drawer } from '@material-ui/core';
 import Collapse from '@material-ui/core/Collapse';
 import {
-  ChevronLeft as ChevronLeftIcon,
-  ChevronRight as ChevronRightIcon,
   MoveToInbox as InboxIcon,
   Drafts as DraftsIcon,
   Send as SendIcon,
@@ -26,7 +18,7 @@ import styles from './styles';
 
 class SideNav extends React.Component {
   render() {
-    const { classes, theme, open = null, handleDrawerClose } = this.props;
+    const { classes, open, handleDrawerClose, children } = this.props;
 
     return (
       <div className={classes.root}>
@@ -37,19 +29,19 @@ class SideNav extends React.Component {
           }}
           open={open}
         >
-          <div className={classes.toolbar}>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-            </IconButton>
-          </div>
           <Divider />
           <List>
-            {' '}
-            <ListItem button>
+            <ListItem
+              button
+              onClick={() => {
+                this.props.history.push('/workflows');
+                handleDrawerClose();
+              }}
+            >
               <ListItemIcon>
                 <SendIcon />
               </ListItemIcon>
-              <ListItemText inset primary="Sent mail" />
+              <ListItemText inset primary="Workflows" />
             </ListItem>
             <ListItem button>
               <ListItemIcon>
@@ -77,7 +69,6 @@ class SideNav extends React.Component {
           </List>
           <Divider />
           <List>
-            {' '}
             <ListItem button>
               <ListItemIcon>
                 <SendIcon />
@@ -111,7 +102,7 @@ class SideNav extends React.Component {
         </Drawer>
         <main className={classes.content}>
           <div className={classes.toolbar} />
-          <Typography noWrap>{'You think water moves fast? You should see ice.'}</Typography>
+          {children}
         </main>
       </div>
     );
@@ -120,8 +111,8 @@ class SideNav extends React.Component {
 
 SideNav.propTypes = {
   classes: PropTypes.object.isRequired,
-  theme: PropTypes.object.isRequired,
-  handleDrawerClose: PropTypes.func.isRequired
+  handleDrawerClose: PropTypes.func.isRequired,
+  children: PropTypes.element.isRequired
 };
 
-export default withStyles(styles, { withTheme: true })(SideNav);
+export default withRouter(withStyles(styles, { withTheme: true })(SideNav));

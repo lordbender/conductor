@@ -13,12 +13,13 @@ const MainContentArea = styled.div`
 
 const App = () => (
   <div>
-    <AppBar />
     <BrowserRouter>
-      <MainContentArea>
-        <HelpRoutes />
-        <WorkflowRoutes />
-      </MainContentArea>
+      <AppBar>
+        <MainContentArea>
+          <HelpRoutes />
+          <WorkflowRoutes />
+        </MainContentArea>
+      </AppBar>
     </BrowserRouter>
   </div>
 );
