@@ -3,7 +3,11 @@ import axios from 'axios';
 
 const defaultState = {
   workflows: [],
-  totalHits: 0
+  totalHits: 0,
+  searchForm: {
+    name: '',
+    status: []
+  }
 };
 
 const prefix = 'GLOBAL/WORKFLOW/WORKFLOW';

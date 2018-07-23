@@ -52,13 +52,13 @@ class List extends React.Component {
 
     const emptyRows = rowsPerPage - Math.min(rowsPerPage, workflows.length - page * rowsPerPage);
 
-    const mapped = workflows.map(({ workflowId, workflowType, status, startTime }) => (
+    const mapped = workflows.map(({ workflowId, workflowType, status, startTime, updateTime }) => (
       <TableRow key={`workflow-row-key-${workflowId}`}>
-        <TableCell component="th" scope="row">
-          {workflowType}
-        </TableCell>
-        <TableCell numeric>{status}</TableCell>
-        <TableCell numeric>{startTime}</TableCell>
+        <TableCell>{workflowId}</TableCell>
+        <TableCell>{workflowType}</TableCell>
+        <TableCell>{status}</TableCell>
+        <TableCell>{startTime}</TableCell>
+        <TableCell>{updateTime}</TableCell>
       </TableRow>
     ));
     const paging = (
@@ -81,11 +81,11 @@ class List extends React.Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>Dessert (100g serving)</TableCell>
-                <TableCell numeric>Calories</TableCell>
-                <TableCell numeric>Fat (g)</TableCell>
-                <TableCell numeric>Carbs (g)</TableCell>
-                <TableCell numeric>Protein (g)</TableCell>
+                <TableCell>Workflow Id</TableCell>
+                <TableCell>Workflow Name</TableCell>
+                <TableCell>Status</TableCell>
+                <TableCell>Time Created</TableCell>
+                <TableCell>Last Updated</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
