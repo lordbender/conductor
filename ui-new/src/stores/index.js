@@ -5,10 +5,12 @@ import createHistory from 'history/createBrowserHistory';
 
 import global from './global';
 import workflow from './workflow';
+import tasks from './tasks';
 
 const rootReducer = combineReducers({
   global,
   workflow,
+  tasks,
   routing: routerReducer
 });
 

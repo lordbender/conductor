@@ -9,6 +9,7 @@ import {
   MoveToInbox as InboxIcon,
   Home as HomeIcon,
   CallMerge as WorkIcon,
+  CallSplit as TaskIcon,
   Drafts as DraftsIcon,
   Send as SendIcon,
   ExpandLess,
@@ -57,12 +58,17 @@ class SideNav extends React.Component {
               </ListItemIcon>
               <ListItemText inset primary="Workflows" />
             </ListItem>
-            <ListItem button>
+            <ListItem
+              button
+              onClick={() => {
+                this.props.history.push('/tasks');
+                handleDrawerClose();
+              }}
+            >
               <ListItemIcon>
-                <InboxIcon />
+                <TaskIcon />
               </ListItemIcon>
-              <ListItemText inset primary="Inbox" />
-              {open ? <ExpandLess /> : <ExpandMore />}
+              <ListItemText inset primary="Tasks" />
             </ListItem>
             <Collapse in={open} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>

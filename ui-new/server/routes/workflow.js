@@ -9,9 +9,7 @@ class WorkflowRoutes {
   init(app, baseRoute) {
     app.get(`${baseRoute}/workflows`, async (req, res) => {
       const { start, size, sort, freeText, query } = req.query;
-
       const workflows = await this.workflowService.list(start, size, sort, freeText, query);
-      console.log(workflows || 'failed');
       return res.json(workflows);
     });
   }

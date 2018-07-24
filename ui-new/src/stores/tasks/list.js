@@ -2,7 +2,7 @@ import { handleActions, createAction } from 'redux-actions';
 import axios from 'axios';
 
 const defaultState = {
-  workflows: [],
+  tasks: [],
   totalHits: 0,
   searchForm: {
     name: '',
@@ -10,15 +10,15 @@ const defaultState = {
   }
 };
 
-const prefix = 'GLOBAL/WORKFLOW/LIST';
-export const setWorkflows = createAction(`${prefix}SET_WORKFLOWS`);
+const prefix = 'GLOBAL/TASKS/LIST';
+export const setTasks = createAction(`${prefix}SET_TASKS`);
 export const setTotalHits = createAction(`${prefix}SET_TOTAL_HITS`);
 
 export default handleActions(
   {
-    [setWorkflows]: (state, { payload }) => ({
+    [setTasks]: (state, { payload }) => ({
       ...state,
-      workflows: [].concat(payload)
+      tasks: [].concat(payload)
     }),
     [setTotalHits]: (state, { payload }) => ({
       ...state,
@@ -29,13 +29,13 @@ export default handleActions(
 );
 
 // eslint-disable-next-line
-export const fetchWorkflows = () => async (dispatch, getState) => {
+export const fetchTasks = () => async (dispatch, getState) => {
   try {
     const {
       data: { results = [], totalHits = 0 }
-    } = await axios.get('/api/v1/workflows');
+    } = await axios.get('/api/v1/tasks');
 
-    dispatch(setWorkflows(results));
+    dispatch(setTasks(results));
     dispatch(setTotalHits(totalHits));
   } catch (e) {
     // eslint-disable-next-line

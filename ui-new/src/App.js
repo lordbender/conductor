@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { BrowserRouter } from 'react-router-dom';
 import HelpRoutes from 'views/Help';
 import WorkflowRoutes from 'views/Workflow';
+import TaskRoutes from 'views/Tasks';
 import AppWrapper from 'components/AppWrapper';
 
 const MainContentArea = styled.div`
@@ -18,6 +19,7 @@ const App = () => (
         <MainContentArea>
           <HelpRoutes />
           <WorkflowRoutes />
+          <TaskRoutes />
         </MainContentArea>
       </AppWrapper>
     </BrowserRouter>
