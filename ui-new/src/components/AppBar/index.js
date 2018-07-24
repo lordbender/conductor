@@ -30,7 +30,7 @@ const AppBarWrapper = ({ classes, handleDrawerToggle }) => (
           <MenuIcon onClick={handleDrawerToggle} />
         </IconButton>
         <Typography variant="title" color="inherit" className={classes.flex}>
-          News
+          Netflix Conductor
         </Typography>
         <Button color="inherit">Login</Button>
       </Toolbar>

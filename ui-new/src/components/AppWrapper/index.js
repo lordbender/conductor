@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import AppBar from 'components/AppBar';
 import SideNav from 'components/SideNav';
 import Footer from 'components/Footer';
+
 import styles from './styles';
 
 class AppWrapper extends React.Component {

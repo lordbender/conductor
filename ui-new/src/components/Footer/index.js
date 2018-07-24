@@ -1,19 +1,23 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import BottomNavigation from '@material-ui/core/BottomNavigation';
+import BottomNavigationAction from '@material-ui/core/BottomNavigationAction';
+import RestoreIcon from '@material-ui/icons/Restore';
+import FavoriteIcon from '@material-ui/icons/Favorite';
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 
 const styles = {
   root: {
-    flexGrow: 1
-  },
-  flex: {
-    flexGrow: 1
-  },
-  menuButton: {
-    marginLeft: -12,
-    marginRight: 20
+    width: 'auto'
   }
 };
 
-const Footer = ({ classes }) => <div className={classes.root}>Footer</div>;
+const Footer = ({ classes }) => (
+  <BottomNavigation showLabels className={classes.root}>
+    <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+    <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+    <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+  </BottomNavigation>
+);
 
 export default withStyles(styles)(Footer);
