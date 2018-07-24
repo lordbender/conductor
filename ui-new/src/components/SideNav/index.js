@@ -7,6 +7,8 @@ import { Divider, ListItemText, ListItemIcon, ListItem, List, Drawer } from '@ma
 import Collapse from '@material-ui/core/Collapse';
 import {
   MoveToInbox as InboxIcon,
+  Home as HomeIcon,
+  CallMerge as WorkIcon,
   Drafts as DraftsIcon,
   Send as SendIcon,
   ExpandLess,
@@ -34,20 +36,26 @@ class SideNav extends React.Component {
             <ListItem
               button
               onClick={() => {
+                this.props.history.push('/');
+                handleDrawerClose();
+              }}
+            >
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText inset primary="Home" />
+            </ListItem>
+            <ListItem
+              button
+              onClick={() => {
                 this.props.history.push('/workflows');
                 handleDrawerClose();
               }}
             >
               <ListItemIcon>
-                <SendIcon />
+                <WorkIcon />
               </ListItemIcon>
               <ListItemText inset primary="Workflows" />
-            </ListItem>
-            <ListItem button>
-              <ListItemIcon>
-                <DraftsIcon />
-              </ListItemIcon>
-              <ListItemText inset primary="Drafts" />
             </ListItem>
             <ListItem button>
               <ListItemIcon>
