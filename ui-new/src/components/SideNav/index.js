@@ -4,7 +4,6 @@ import classNames from 'classnames';
 import { withRouter } from 'react-router';
 import { withStyles } from '@material-ui/core/styles';
 import { Divider, ListItemText, ListItemIcon, ListItem, List, Drawer } from '@material-ui/core';
-import Collapse from '@material-ui/core/Collapse';
 import {
   Home as HomeIcon,
   CallMerge as WorkIcon,

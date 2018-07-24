@@ -9,6 +9,10 @@ const methods = {
 };
 
 class BaseService {
+  constructor() {
+    this.javaApiUrl = process.env.JAVA_API_BASE_URL;
+  }
+
   async baseRequest(url, method, body) {
     let result = {};
     try {

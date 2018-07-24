@@ -12,7 +12,9 @@ import {
   TableRow,
   Paper
 } from '@material-ui/core';
-import TablePaginationActions from 'views/Workflow/TablePaginationActions';
+import TablePaginationActions from 'components/TablePaginationActions';
+import { SelectableText } from 'components/StyledComponents';
+
 import { fetchWorkflows } from 'stores/workflow/list';
 
 const styles = () => ({
@@ -54,7 +56,11 @@ class List extends React.Component {
 
     const mapped = workflows.map(({ workflowId, workflowType, status, startTime, updateTime }) => (
       <TableRow key={`workflow-row-key-${workflowId}`}>
-        <TableCell>{workflowId}</TableCell>
+        <TableCell>
+          <SelectableText onClick={() => this.props.history.push(`/workflows/${workflowId}`)}>
+            {workflowId}
+          </SelectableText>
+        </TableCell>
         <TableCell>{workflowType}</TableCell>
         <TableCell>{status}</TableCell>
         <TableCell>{startTime}</TableCell>

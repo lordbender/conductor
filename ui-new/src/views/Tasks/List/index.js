@@ -12,7 +12,7 @@ import {
   TableRow,
   Paper
 } from '@material-ui/core';
-import TablePaginationActions from 'views/Workflow/TablePaginationActions';
+import TablePaginationActions from 'components/TablePaginationActions';
 import { fetchTasks } from 'stores/tasks/list';
 
 const styles = () => ({
