@@ -1,26 +1,6 @@
 const drawerWidth = 240;
 
 const styles = theme => ({
-  root: {
-    flexGrow: 1,
-    minHeight: 800,
-    zIndex: 1,
-    overflow: 'hidden',
-    position: 'relative',
-    display: 'flex'
-  },
-  appBarShift: {
-    marginLeft: drawerWidth,
-    width: `calc(100% - ${drawerWidth}px)`,
-    transition: theme.transitions.create(['width', 'margin'], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.enteringScreen
-    })
-  },
-  menuButton: {
-    marginLeft: 12,
-    marginRight: 36
-  },
   hide: {
     display: 'none'
   },
@@ -43,17 +23,6 @@ const styles = theme => ({
     [theme.breakpoints.up('sm')]: {
       width: theme.spacing.unit * 9
     }
-  },
-  toolbar: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
-    padding: '0 8px',
-    ...theme.mixins.toolbar
-  },
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default
   }
 });
 
