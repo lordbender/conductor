@@ -15,7 +15,7 @@ import {
 import TablePaginationActions from 'components/TablePaginationActions';
 import { SelectableText } from 'components/StyledComponents';
 
-import { fetchWorkflows } from 'stores/workflow/list';
+import { fetchBlueprints } from 'stores/blueprint/list';
 
 const styles = () => ({
   root: {
@@ -37,7 +37,7 @@ class List extends React.Component {
   };
 
   async componentWillMount() {
-    await this.props.fetchWorkflows();
+    await this.props.fetchBlueprints();
   }
 
   handleChangePage = async (_, page) => {
@@ -49,29 +49,28 @@ class List extends React.Component {
   };
 
   render() {
-    const { workflows = [], totalHits = 0, classes } = this.props;
+    const { blueprints = [], classes } = this.props;
     const { rowsPerPage, page } = this.state;
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, workflows.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, blueprints.length - page * rowsPerPage);
 
-    const mapped = workflows.map(({ workflowId, workflowType, status, startTime, updateTime }) => (
-      <TableRow key={`workflow-row-key-${workflowId}`}>
+    const mapped = blueprints.map(({ name, description, version, createTime, tasks }) => (
+      <TableRow key={`blueprint-row-key-${name}`}>
         <TableCell>
-          <SelectableText onClick={() => this.props.history.push(`/workflows/${workflowId}`)}>
-            {workflowId}
-          </SelectableText>
+          <SelectableText onClick={() => this.props.history.push(`/blueprints/${name}`)}>{name}</SelectableText>
         </TableCell>
-        <TableCell>{workflowType}</TableCell>
-        <TableCell>{status}</TableCell>
-        <TableCell>{startTime}</TableCell>
-        <TableCell>{updateTime}</TableCell>
+        <TableCell>{description}</TableCell>
+        <TableCell>{version}</TableCell>
+        <TableCell>{createTime}</TableCell>
+        <TableCell>{tasks.length}</TableCell>
       </TableRow>
     ));
+
     const paging = (
       <TableRow>
         <TablePagination
           colSpan={3}
-          count={totalHits}
+          count={blueprints.length}
           rowsPerPage={rowsPerPage}
           page={page}
           onChangePage={this.handleChangePage}
@@ -87,11 +86,11 @@ class List extends React.Component {
           <Table className={classes.table}>
             <TableHead>
               <TableRow>
-                <TableCell>Workflow Id</TableCell>
-                <TableCell>Workflow Name</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Time Created</TableCell>
-                <TableCell>Last Updated</TableCell>
+                <TableCell>Blueprint Name</TableCell>
+                <TableCell>Description</TableCell>
+                <TableCell>Version</TableCell>
+                <TableCell>Created</TableCell>
+                <TableCell>Tasks Count</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -112,16 +111,14 @@ class List extends React.Component {
 
 List.propTypes = {
   classes: PropTypes.object.isRequired,
-  workflows: PropTypes.array.isRequired,
-  totalHits: PropTypes.number.isRequired
+  blueprints: PropTypes.array.isRequired
 };
 
 export default connect(
   state => ({
-    workflows: state.workflow.list.workflows,
-    totalHits: state.workflow.list.totalHits
+    blueprints: state.blueprint.list.blueprints
   }),
   {
-    fetchWorkflows
+    fetchBlueprints
   }
 )(withStyles(styles)(List));

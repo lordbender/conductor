@@ -2,34 +2,32 @@ import { handleActions, createAction } from 'redux-actions';
 import axios from 'axios';
 
 const defaultState = {
-  workflowDefinitions: [],
+  blueprints: [],
   searchForm: {
     name: '',
     status: []
   }
 };
 
-const prefix = 'GLOBAL/METADATA/LIST';
-export const setWorkflowDefinitions = createAction(`${prefix}SET_WORKFLOW_DEFINITIONS`);
+const prefix = 'GLOBAL/BLUEPRINT/LIST';
+export const setBlueprints = createAction(`${prefix}SET_BLUEPRINTS`);
 
 export default handleActions(
   {
-    [setWorkflowDefinitions]: (state, { payload }) => ({
+    [setBlueprints]: (state, { payload }) => ({
       ...state,
-      workflows: [].concat(payload)
+      blueprints: [].concat(payload)
     })
   },
   defaultState
 );
 
 // eslint-disable-next-line
-export const fetchWorkflowMetadatas = () => async (dispatch, getState) => {
+export const fetchBlueprints = () => async (dispatch, getState) => {
   try {
-    const {
-      data: { results = [] }
-    } = await axios.get('/api/v1/blueprints');
+    const { data } = await axios.get('/api/v1/blueprints');
 
-    dispatch(setWorkflowDefinitions(results));
+    dispatch(setBlueprints(data));
   } catch (e) {
     // eslint-disable-next-line
     console.error(e);

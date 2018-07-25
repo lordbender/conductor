@@ -14,7 +14,6 @@ import {
 } from '@material-ui/core';
 import TablePaginationActions from 'components/TablePaginationActions';
 import { SelectableText } from 'components/StyledComponents';
-
 import { fetchWorkflows } from 'stores/workflow/list';
 
 const styles = () => ({
@@ -52,7 +51,7 @@ class List extends React.Component {
     const { workflows = [], totalHits = 0, classes } = this.props;
     const { rowsPerPage, page } = this.state;
 
-    const emptyRows = rowsPerPage - Math.min(rowsPerPage, workflows.length - page * rowsPerPage);
+    const emptyRows = rowsPerPage - Math.min(rowsPerPage, totalHits - page * rowsPerPage);
 
     const mapped = workflows.map(({ workflowId, workflowType, status, startTime, updateTime }) => (
       <TableRow key={`workflow-row-key-${workflowId}`}>
@@ -112,14 +111,12 @@ class List extends React.Component {
 
 List.propTypes = {
   classes: PropTypes.object.isRequired,
-  workflows: PropTypes.array.isRequired,
-  totalHits: PropTypes.number.isRequired
+  workflows: PropTypes.array.isRequired
 };
 
 export default connect(
   state => ({
-    workflows: state.workflow.list.workflows,
-    totalHits: state.workflow.list.totalHits
+    workflows: state.workflow.list.workflows
   }),
   {
     fetchWorkflows
