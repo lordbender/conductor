@@ -23,13 +23,13 @@ class List extends React.Component {
   }
 
   render() {
-    const { workflow = {}, workflowMetaData = {}, classes } = this.props;
+    const { workflow = {}, blueprint = {} } = this.props;
 
     return (
       <div>
         <Grapher />
         <pre id="test-graph">{JSON.stringify(workflow, null, 4)}</pre>
-        <pre id="test-graph">{JSON.stringify(workflowMetaData, null, 4)}</pre>
+        <pre id="test-graph">{JSON.stringify(blueprint, null, 4)}</pre>
       </div>
     );
   }
@@ -43,7 +43,7 @@ List.propTypes = {
 export default connect(
   state => ({
     workflow: state.workflow.detail.workflow,
-    workflowMetaData: state.workflow.detail.workflowMetaData
+    blueprint: state.blueprints.detail.blueprint
   }),
   {
     fetchWorkflow

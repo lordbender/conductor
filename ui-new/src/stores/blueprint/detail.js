@@ -6,11 +6,11 @@ const defaultState = {
 };
 
 const prefix = 'GLOBAL/METADATA/DETAIL';
-export const setMetadata = createAction(`${prefix}SET_METADATA`);
+export const setBlueprint = createAction(`${prefix}SET_METADATA`);
 
 export default handleActions(
   {
-    [setMetadata]: (state, { payload }) => ({
+    [setBlueprint]: (state, { payload }) => ({
       ...state,
       blueprint: { ...payload }
     })
@@ -21,12 +21,12 @@ export default handleActions(
 // eslint-disable-next-line
 export const fetchBlueprint = workflowType => async (dispatch, getState) => {
   try {
-    const { data: workflowMetadata } = await axios.get(`/api/v1/metadata/${workflowType}`);
+    const { data: blueprint } = await axios.get(`/api/v1/blueprints/${workflowType}`);
 
-    dispatch(setMetadata(workflowMetadata));
+    dispatch(setBlueprint(blueprint));
 
     return {
-      workflowMetadata
+      ...blueprint
     };
   } catch (e) {
     // eslint-disable-next-line

@@ -27,7 +27,7 @@ export const fetchWorkflowMetadatas = () => async (dispatch, getState) => {
   try {
     const {
       data: { results = [] }
-    } = await axios.get('/api/v1/metadata');
+    } = await axios.get('/api/v1/blueprints');
 
     dispatch(setWorkflowDefinitions(results));
   } catch (e) {

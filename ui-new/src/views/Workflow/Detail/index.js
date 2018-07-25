@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grapher from 'components/Grapher';
 import { fetchWorkflow } from 'stores/workflow/detail';
-import { fetchBlueprint } from 'stores/metadata/detail';
+import { fetchBlueprint } from 'stores/blueprint/detail';
 
 const styles = () => ({
   root: {
@@ -46,7 +46,7 @@ List.propTypes = {
 export default connect(
   state => ({
     workflow: state.workflow.detail.workflow,
-    blueprint: state.metadata.detail.blueprint
+    blueprint: state.blueprint.detail.blueprint
   }),
   {
     fetchWorkflow,
