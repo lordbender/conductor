@@ -27,6 +27,7 @@ class List extends React.Component {
 
     return (
       <div>
+        <Grapher />
         <pre id="test-graph">{JSON.stringify(workflow, null, 4)}</pre>
         <pre id="test-graph">{JSON.stringify(workflowMetaData, null, 4)}</pre>
       </div>
