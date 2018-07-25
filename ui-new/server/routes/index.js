@@ -1,13 +1,13 @@
 const StaticRoutes = require('./static');
 const WorkflowRoutes = require('./workflow');
-const MetaRoutes = require('./meta');
+const BlueprintsRoutes = require('./blueprints');
 const TasksRoutes = require('./tasks');
 
 class RoutesIndex {
   constructor() {
     this.staticRoutes = new StaticRoutes();
     this.workflowRoutes = new WorkflowRoutes();
-    this.metaRoutes = new MetaRoutes();
+    this.blueprintsRoutes = new BlueprintsRoutes();
     this.tasksRoutes = new TasksRoutes();
   }
 
@@ -18,7 +18,7 @@ class RoutesIndex {
 
     this.staticRoutes.init(app);
     this.workflowRoutes.init(app, BASE_URL);
-    this.metaRoutes.init(app, BASE_URL);
+    this.blueprintsRoutes.init(app, BASE_URL);
     this.tasksRoutes.init(app, BASE_URL);
   }
 }

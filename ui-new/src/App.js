@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import HelpRoutes from 'views/Help';
 import WorkflowRoutes from 'views/Workflow';
 import TaskRoutes from 'views/Tasks';
+import BlueprintRoutes from 'views/Blueprint';
 import AppWrapper from 'components/AppWrapper';
 
 const MainContentArea = styled.div`
@@ -20,6 +21,7 @@ const App = () => (
           <HelpRoutes />
           <WorkflowRoutes />
           <TaskRoutes />
+          <BlueprintRoutes />
         </MainContentArea>
       </AppWrapper>
     </BrowserRouter>

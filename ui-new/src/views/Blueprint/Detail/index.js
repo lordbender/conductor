@@ -4,7 +4,6 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grapher from 'components/Grapher';
 import { fetchWorkflow } from 'stores/workflow/detail';
-import { fetchBlueprint } from 'stores/metadata/detail';
 
 const styles = () => ({
   root: {
@@ -20,36 +19,33 @@ class List extends React.Component {
         params: { workflowId }
       }
     } = this.props;
-
-    const { workflowType } = await this.props.fetchWorkflow(workflowId);
-    await this.props.fetchBlueprint(workflowType);
+    await this.props.fetchWorkflow(workflowId);
   }
 
   render() {
-    const { workflow = {}, blueprint = {} } = this.props;
+    const { workflow = {}, workflowMetaData = {}, classes } = this.props;
 
     return (
       <div>
         <Grapher />
         <pre id="test-graph">{JSON.stringify(workflow, null, 4)}</pre>
-        <pre id="test-graph">{JSON.stringify(blueprint, null, 4)}</pre>
+        <pre id="test-graph">{JSON.stringify(workflowMetaData, null, 4)}</pre>
       </div>
     );
   }
 }
 
 List.propTypes = {
-  workflow: PropTypes.object.isRequired,
-  blueprint: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  workflow: PropTypes.object.isRequired
 };
 
 export default connect(
   state => ({
     workflow: state.workflow.detail.workflow,
-    blueprint: state.metadata.detail.blueprint
+    workflowMetaData: state.workflow.detail.workflowMetaData
   }),
   {
-    fetchWorkflow,
-    fetchBlueprint
+    fetchWorkflow
   }
 )(withStyles(styles)(List));

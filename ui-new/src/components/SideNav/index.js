@@ -65,14 +65,14 @@ const SideNav = ({ classes, open, handleDrawerClose, history, children }) => (
         <ListItem
           button
           onClick={() => {
-            history.push('/meta');
+            history.push('/blueprints');
             handleDrawerClose();
           }}
         >
           <ListItemIcon>
             <StarBorder />
           </ListItemIcon>
-          <ListItemText inset primary="Meta" />
+          <ListItemText inset primary="Blueprints" />
         </ListItem>
       </List>
       <Divider />

@@ -1,7 +1,6 @@
 /* eslint-disable */
 
 import React, { Component } from 'react';
-import * as go from 'gojs';
 import uuid from 'uuid';
 
 class Grapher extends Component {
@@ -11,9 +10,16 @@ class Grapher extends Component {
 
     this.state = { flowId, flowKey: `flow-chart-${flowId}` };
   }
-  componentDidMount() {}
+
+  componentDidMount() {
+    const { flowKey } = this.state;
+    const node = document.getElementById(flowKey);
+  }
+
   render() {
-    return <div id={this.state.flowKey} />;
+    const { flowKey } = this.state;
+
+    return <div id={flowKey} />;
   }
 }
 

@@ -5,11 +5,13 @@ import createHistory from 'history/createBrowserHistory';
 
 import global from './global';
 import workflow from './workflow';
+import blueprints from './metadata';
 import tasks from './tasks';
 
 const rootReducer = combineReducers({
   global,
   workflow,
+  blueprints,
   tasks,
   routing: routerReducer
 });
