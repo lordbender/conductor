@@ -27,7 +27,7 @@ class List extends React.Component {
 
     return (
       <div>
-        <Grapher />
+        <Grapher blueprint={blueprint} />
         <pre id="test-graph">{JSON.stringify(blueprint, null, 4)}</pre>
       </div>
     );
