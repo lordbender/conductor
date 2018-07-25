@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Grapher from 'components/Grapher';
-import { fetchWorkflow } from 'stores/workflow/detail';
+import { fetchBlueprint } from 'stores/blueprint/detail';
 
 const styles = () => ({
   root: {
@@ -16,19 +16,18 @@ class List extends React.Component {
   async componentWillMount() {
     const {
       match: {
-        params: { workflowId }
+        params: { workflowType }
       }
     } = this.props;
-    await this.props.fetchWorkflow(workflowId);
+    await this.props.fetchBlueprint(workflowType);
   }
 
   render() {
-    const { workflow = {}, blueprint = {} } = this.props;
+    const { blueprint = {} } = this.props;
 
     return (
       <div>
         <Grapher />
-        <pre id="test-graph">{JSON.stringify(workflow, null, 4)}</pre>
         <pre id="test-graph">{JSON.stringify(blueprint, null, 4)}</pre>
       </div>
     );
@@ -36,16 +35,14 @@ class List extends React.Component {
 }
 
 List.propTypes = {
-  classes: PropTypes.object.isRequired,
-  workflow: PropTypes.object.isRequired
+  blueprint: PropTypes.object.isRequired
 };
 
 export default connect(
   state => ({
-    workflow: state.workflow.detail.workflow,
-    blueprint: state.blueprints.detail.blueprint
+    blueprint: state.blueprint.detail.blueprint
   }),
   {
-    fetchWorkflow
+    fetchBlueprint
   }
 )(withStyles(styles)(List));
