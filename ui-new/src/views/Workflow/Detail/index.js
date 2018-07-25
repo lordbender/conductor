@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import Grapher from 'components/Grapher';
 import { fetchWorkflow } from 'stores/workflow/detail';
 
 const styles = () => ({
@@ -12,11 +13,6 @@ const styles = () => ({
 });
 
 class List extends React.Component {
-  state = {
-    page: 0,
-    rowsPerPage: 5
-  };
-
   async componentWillMount() {
     const {
       match: {
@@ -26,21 +22,13 @@ class List extends React.Component {
     await this.props.fetchWorkflow(workflowId);
   }
 
-  handleChangePage = async (_, page) => {
-    await this.setState({ page });
-  };
-
-  handleChangeRowsPerPage = async event => {
-    this.setState({ rowsPerPage: event.target.value });
-  };
-
   render() {
     const { workflow = {}, workflowMetaData = {}, classes } = this.props;
 
     return (
       <div>
-        <pre>{JSON.stringify(workflowMetaData, null, 2)}</pre>
-        <pre>{JSON.stringify(workflow, null, 2)}</pre>
+        <pre id="test-graph">{JSON.stringify(workflow, null, 4)}</pre>
+        <pre id="test-graph">{JSON.stringify(workflowMetaData, null, 4)}</pre>
       </div>
     );
   }

@@ -8,6 +8,7 @@
     "watch": "gulp watch",
     "build": "gulp build --release",
     "deploy": "gulp deploy --release",
+    "serve": "gulp serve",
     "eslint": "eslint  [src]*"
   },
   "repository": {

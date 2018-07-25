@@ -35,6 +35,11 @@ export const fetchWorkflow = workflowId => async (dispatch, getState) => {
 
     dispatch(setWorkflow(workflowDetail));
     dispatch(setWorkflowMetadata(workflowMetadata));
+
+    return {
+      workflowDetail,
+      workflowMetadata
+    };
   } catch (e) {
     // eslint-disable-next-line
     console.error(e);

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import dagreD3 from 'dagre-d3';
 import d3 from 'd3';
-import { Tabs, Tab, Table } from 'react-bootstrap';
-import Clipboard from 'clipboard';
+// import { Tabs, Tab, Table } from 'react-bootstrap';
+// import Clipboard from 'clipboard';
 
-new Clipboard('.btn');
+// new Clipboard('.btn');
 
 class Grapher extends Component {
   constructor(props) {
@@ -199,9 +199,9 @@ class Grapher extends Component {
           >
             {this.state.selectedTask.reasonForIncompletion}
           </div>
-          <Tabs defaultActiveKey={1}>
-            <Tab eventKey={1} title="Summary">
-              <Table responsive={true} striped={false} hover={false} condensed={false} bordered={true}>
+          <div defaultActiveKey={1}>
+            <div eventKey={1} title="Summary">
+              <div>
                 <tbody>
                   <tr>
                     <th>Task Ref. Name</th>
@@ -245,19 +245,19 @@ class Grapher extends Component {
                     </td>
                   </tr>
                 </tbody>
-              </Table>
-            </Tab>
-            <Tab eventKey={2} title="JSON">
+              </div>
+            </div>
+            <div eventKey={2} title="JSON">
               <br />
               <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#t_json" />
               <pre id="t_json">{JSON.stringify(this.state.selectedTask, null, 3)}</pre>
-            </Tab>
-            <Tab eventKey={3} title="Logs">
+            </div>
+            <div eventKey={3} title="Logs">
               <br />
               <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#t_logs" />
               <pre id="t_logs">{JSON.stringify(this.state.selectedTask.logs, null, 3)}</pre>
-            </Tab>
-          </Tabs>
+            </div>
+          </div>
         </div>
         <div style={{ overflowX: 'auto', width: '100%' }}>
           <svg ref={this.setSvgRef}>
