@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
@@ -12,7 +13,20 @@ const styles = () => ({
   }
 });
 
-class List extends React.Component {
+const GraphDetailContentArea = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const GraphArea = styled.div`
+  width: 66%;
+`;
+
+const DetailArea = styled.div`
+  width: 33%;
+`;
+
+class Detail extends React.Component {
   async componentWillMount() {
     const {
       match: {
@@ -25,16 +39,21 @@ class List extends React.Component {
   render() {
     const { blueprint = {} } = this.props;
 
+    console.log('blueprint 1 => ', blueprint);
     return (
-      <div>
-        <Grapher blueprint={blueprint} />
-        <pre id="test-graph">{JSON.stringify(blueprint, null, 4)}</pre>
-      </div>
+      <GraphDetailContentArea>
+        <GraphArea>
+          <Grapher blueprint={blueprint} />
+        </GraphArea>
+        <DetailArea>
+          <pre id="test-graph">{JSON.stringify(blueprint, null, 4)}</pre>
+        </DetailArea>
+      </GraphDetailContentArea>
     );
   }
 }
 
-List.propTypes = {
+Detail.propTypes = {
   blueprint: PropTypes.object.isRequired
 };
 
@@ -45,4 +64,4 @@ export default connect(
   {
     fetchBlueprint
   }
-)(withStyles(styles)(List));
+)(withStyles(styles)(Detail));
