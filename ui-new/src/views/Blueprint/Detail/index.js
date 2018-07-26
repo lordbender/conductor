@@ -19,11 +19,11 @@ const GraphDetailContentArea = styled.div`
 `;
 
 const GraphArea = styled.div`
-  width: 66%;
+  min-width: 400px;
 `;
 
 const DetailArea = styled.div`
-  width: 33%;
+  min-width: 250px;
 `;
 
 class Detail extends React.Component {

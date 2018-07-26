@@ -20,27 +20,22 @@ class Grapher extends Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    const { flowKey } = nextState;
-    const { blueprint } = nextProps;
+    const {
+      blueprint: { tasks = [] }
+    } = nextProps;
 
-    console.log('blueprint 2 => ', blueprint);
+    console.log('tasks 2 => ', tasks);
+    const nodes = tasks.map(({ name, taskReferenceName, type }) => ({
+      id: taskReferenceName,
+      name,
+      type,
+      nodeLabel: taskReferenceName,
+      nodeColor: '#333',
+      val: 1
+    }));
+
     const graphData = {
-      nodes: [
-        {
-          id: 'id1',
-          name: 'begin',
-          nodeLabel: 'cool 1',
-          nodeColor: '#333',
-          val: 1
-        },
-        {
-          id: 'id2',
-          name: 'end',
-          nodeLabel: 'cool 2',
-          nodeColor: '#444',
-          val: 10
-        }
-      ],
+      nodes: nodes,
       links: [
         {
           source: 'id1',
@@ -55,7 +50,7 @@ class Grapher extends Component {
 
   render() {
     const { flowKey, graphData } = this.state;
-    return <ForceGraph2D id={flowKey} graphData={graphData} />;
+    return <ForceGraph2D graphData={graphData} />;
   }
 }
 
