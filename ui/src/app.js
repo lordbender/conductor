@@ -1,27 +1,27 @@
 import React from 'react';
-import { render } from 'react-dom';
-import { Router, browserHistory } from 'react-router';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import routeConfig from './routes';
-import workflowApp from './reducers';
+import HomeRoutes from './views/Home';
+// import Footer from './components/Footer';
+// import LeftMenu from './components/LeftMenu';
 
-// eslint-disable-next-line no-underscore-dangle
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(workflowApp, composeEnhancers(applyMiddleware(thunkMiddleware)));
-
-function updateLocation() {
-  store.dispatch({
-    type: 'LOCATION_UPDATED',
-    location: this.state.location.key
-  });
-}
-
-render(
-  <Provider store={store}>
-    <Router history={browserHistory} routes={routeConfig} onUpdate={updateLocation} />
-  </Provider>,
-  document.getElementById('content')
+const App = () => (
+  <div style={{ height: '100%' }}>
+    <div style={{ height: '100%' }}>
+      {/* <LeftMenu version="1.0.0" /> */}
+      <div
+        className="appMainBody"
+        style={{
+          width: document.body.clientWidth - 180,
+          marginTop: '10px',
+          paddingRight: '20px'
+        }}
+      >
+        <div>
+          <HomeRoutes />
+        </div>
+      </div>
+    </div>
+    {/* <Footer /> */}
+  </div>
 );
+
+export default App;

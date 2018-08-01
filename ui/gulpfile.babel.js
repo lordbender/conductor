@@ -21,8 +21,8 @@ import env from 'gulp-env';
 import config from './config';
 
 const paths = {
-  bundle: 'app.js',
-  srcJsx: 'src/app.js',
+  bundle: 'index.js',
+  srcJsx: 'src/index.js',
   srcServer: 'src/server.js',
   srcCss: 'src/**/*.css',
   srcFonts: 'src/fonts/**',
