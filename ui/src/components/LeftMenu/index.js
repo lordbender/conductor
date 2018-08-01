@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 const menuPaths = {
@@ -152,4 +152,4 @@ class LeftMenu extends React.Component {
   }
 }
 
-export default connect(state => state.workflow)(LeftMenu);
+export default connect(state => ({ workflow: state.workflow }))(LeftMenu);

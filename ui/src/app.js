@@ -1,12 +1,12 @@
 import React from 'react';
 import HomeRoutes from './views/Home';
 // import Footer from './components/Footer';
-// import LeftMenu from './components/LeftMenu';
+import LeftMenu from './components/LeftMenu';
 
 const App = () => (
   <div style={{ height: '100%' }}>
     <div style={{ height: '100%' }}>
-      {/* <LeftMenu version="1.0.0" /> */}
+      <LeftMenu version="1.0.0" />
       <div
         className="appMainBody"
         style={{
