@@ -17,6 +17,7 @@ class Main {
     const middlewareIndex = new MiddlewareIndex();
 
     this.preMiddlewareConfig(app, middlewareIndex);
+    this.staticConfig(app);
     this.routesConfig(app);
     this.postMiddlewareConfig(app, middlewareIndex);
     this.startServer(app);
@@ -26,10 +27,14 @@ class Main {
     middlewareIndex.before(app);
   };
 
-  routesConfig = app => {
-    log.info(`Serving static ${process.cwd()}`);
-    app.use(express.static('public'));
+  staticConfig = app => {
+    const staticContent = express.static('public');
 
+    app.use('/', staticContent);
+    app.use('/workflow/*', staticContent);
+  };
+
+  routesConfig = app => {
     new WorkflowRoutes().init(app);
     new MetadataRoutes().init(app);
     new TaskRoutes().init(app);
