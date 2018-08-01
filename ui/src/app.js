@@ -1,6 +1,6 @@
 import React from 'react';
 import HomeRoutes from './views/Home';
-import MetadataRoutes from './views/Metadata';
+// import MetadataRoutes from './views/Metadata';
 // import Footer from './components/Footer';
 import LeftMenu from './components/LeftMenu';
 
@@ -18,7 +18,7 @@ const App = () => (
       >
         <div>
           <HomeRoutes />
-          <MetadataRoutes />
+          {/* <MetadataRoutes /> */}
         </div>
       </div>
     </div>
