@@ -188,28 +188,28 @@ export const resumeWorfklow = workflowId => {
 };
 
 // metadata
-export const getWorkflowDefs = () => {
-  return dispatch => {
-    dispatch({
-      type: 'LIST_WORKFLOWS'
-    });
+// export const getWorkflowDefs = () => {
+//   return dispatch => {
+//     dispatch({
+//       type: 'LIST_WORKFLOWS'
+//     });
 
-    return axios
-      .get('/api/wfe/metadata/workflow')
-      .then(({ data }) => {
-        dispatch({
-          type: 'RECEIVED_LIST_WORKFLOWS',
-          workflows: data
-        });
-      })
-      .catch(e => {
-        dispatch({
-          type: 'REQUEST_ERROR',
-          e
-        });
-      });
-  };
-};
+//     return axios
+//       .get('/api/wfe/metadata/workflow')
+//       .then(({ data }) => {
+//         dispatch({
+//           type: 'RECEIVED_LIST_WORKFLOWS',
+//           workflows: data
+//         });
+//       })
+//       .catch(e => {
+//         dispatch({
+//           type: 'REQUEST_ERROR',
+//           e
+//         });
+//       });
+//   };
+// };
 
 export const getWorkflowMetaDetails = (name, version) => {
   return dispatch => {

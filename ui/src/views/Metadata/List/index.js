@@ -1,24 +1,16 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { getWorkflowDefs } from '../../actions/WorkflowActions';
+import { listWorkflowDefs } from '../../../stores/metadata';
 
 class List extends React.Component {
-  state = {
-    workflows: []
-  };
-
-  componentWillMount() {
-    this.props.dispatch(getWorkflowDefs());
-  }
-
-  componentWillReceiveProps({ workflows }) {
-    this.setState({ workflows });
+  async componentWillMount() {
+    await this.props.listWorkflowDefs();
   }
 
   render() {
-    const { workflows } = this.state;
+    const { workflowDefs } = this.props;
 
     function jsonMaker(cell) {
       return JSON.stringify(cell);
@@ -35,7 +27,7 @@ class List extends React.Component {
       );
     }
 
-    function nameMaker(cell, row) {
+    function nameMaker(_, row) {
       return (
         <Link to={`/workflow/metadata/${row.name}/${row.version}`}>
           {row.name} / {row.version}
@@ -46,7 +38,7 @@ class List extends React.Component {
     return (
       <div className="ui-content">
         <h1>Workflows</h1>
-        <BootstrapTable data={workflows} striped hover search exportCSV={false} pagination={false}>
+        <BootstrapTable data={workflowDefs} striped hover search exportCSV={false} pagination={false}>
           <TableHeaderColumn dataField="name" isKey dataAlign="left" dataSort dataFormat={nameMaker}>
             Name/Version
           </TableHeaderColumn>
@@ -62,4 +54,7 @@ class List extends React.Component {
   }
 }
 
-export default connect(state => state.workflow)(List);
+export default connect(
+  state => ({ workflowDefs: state.workflow }),
+  { listWorkflowDefs }
+)(List);
