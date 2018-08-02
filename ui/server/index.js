@@ -1,15 +1,16 @@
 import 'babel-polyfill';
 import express from 'express';
 import Bunyan from 'bunyan';
-import MiddlewareIndex from './api/middleware';
+
+import MiddlewareIndex from './middleware';
+import WorkflowRoutes from './routes/workflow';
+import MetadataRoutes from './routes/metadata';
+import SystemRoutes from './routes/system';
+import EventsRoutes from './routes/events';
+import TaskRoutes from './routes/tasks';
+
 
 const log = Bunyan.createLogger({ src: true, name: 'Conductor UI' });
-
-const WorkflowRoutes = require('./api/routes/workflow');
-const MetadataRoutes = require('./api/routes/metadata');
-const SystemRoutes = require('./api/routes/system');
-const EventsRoutes = require('./api/routes/events');
-const TaskRoutes = require('./api/routes/tasks');
 
 class Main {
   init() {

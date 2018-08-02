@@ -16,4 +16,4 @@ const Wrapper = () => (
   </ErrorBoundry>
 );
 
-ReactDOM.render(<Wrapper />, document.getElementById('content'));
+ReactDOM.render(<Wrapper />, document.getElementById('root'));
