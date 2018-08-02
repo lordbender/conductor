@@ -26,6 +26,7 @@
     "linebreak-style": [0, "unix"],
     "no-console": ["warn"],
     "no-magic-numbers": 0,
+    "no-confusing-arrow": 0,
     "react/forbid-prop-types": 0,
     "react/jsx-filename-extension": [
       1,

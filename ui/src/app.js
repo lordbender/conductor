@@ -1,20 +1,32 @@
 import React from 'react';
+import styled from 'styled-components';
 import HomeRoutes from './views/Home';
 import MetadataRoutes from './views/Metadata';
 // import Footer from './components/Footer';
 import LeftMenu from './components/LeftMenu';
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const Column = styled.div`
+  width: ${props => props.width || '100%'};
+  flex-direction: row;
+  padding: ${props => props.padding || 0}px;
+`;
+
 const App = () => (
-  <div className="container">
-    <div>
-      <LeftMenu version="1.0.0" className="col-md-4" />
-    </div>
-    <div className="col-md-8">
+  <Container>
+    <Column width="20%" padding={5}>
+      <LeftMenu version="1.0.0" />
+    </Column>
+    <Column width="80%" padding={15}>
       <HomeRoutes />
       <MetadataRoutes />
-    </div>
+    </Column>
     {/* <Footer /> */}
-  </div>
+  </Container>
 );
 
 export default App;

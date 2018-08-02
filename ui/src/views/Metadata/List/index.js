@@ -26,11 +26,11 @@ class List extends React.Component {
             {workflowDefs.map(({ name, version, tasks }) => (
               <tr>
                 <td>
-                  <Button bsStyle="link">
-                    onClick={() => {
-                      this.props.history.push(`/workflow/metadata/${name}/${version}`);
-                    }}
-                    >{`${name} / ${version}`}
+                  <Button
+                    bsStyle="link"
+                    onClick={() => this.props.history.push(`/workflow/metadata/${name}/${version}`)}
+                  >
+                    {`${name} / ${version}`}
                   </Button>
                 </td>
                 <td>Larry the Bird</td>

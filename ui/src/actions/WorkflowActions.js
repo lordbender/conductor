@@ -211,32 +211,32 @@ export const resumeWorfklow = workflowId => {
 //   };
 // };
 
-export const getWorkflowMetaDetails = (name, version) => {
-  return dispatch => {
-    dispatch({
-      type: 'GET_WORKFLOW_DEF',
-      name,
-      version
-    });
+// export const getWorkflowMetaDetails = (name, version) => {
+//   return dispatch => {
+//     dispatch({
+//       type: 'GET_WORKFLOW_DEF',
+//       name,
+//       version
+//     });
 
-    return axios
-      .get(`/api/wfe/metadata/workflow/${name}/${version}`)
-      .then(({ data }) => {
-        dispatch({
-          type: 'RECEIVED_WORKFLOW_DEF',
-          name,
-          version,
-          workflowMeta: data
-        });
-      })
-      .catch(e => {
-        dispatch({
-          type: 'REQUEST_ERROR',
-          e
-        });
-      });
-  };
-};
+//     return axios
+//       .get(`/api/wfe/metadata/workflow/${name}/${version}`)
+//       .then(({ data }) => {
+//         dispatch({
+//           type: 'RECEIVED_WORKFLOW_DEF',
+//           name,
+//           version,
+//           workflowMeta: data
+//         });
+//       })
+//       .catch(e => {
+//         dispatch({
+//           type: 'REQUEST_ERROR',
+//           e
+//         });
+//       });
+//   };
+// };
 
 export const getTaskDefs = () => {
   return dispatch => {

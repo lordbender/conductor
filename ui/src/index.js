@@ -1,10 +1,12 @@
 import React from 'react';
+import store from 'stores';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
-import App from './App';
-import store from './stores';
-import ErrorBoundry from './components/ErrorBoundry';
+import ErrorBoundry from 'components/ErrorBoundry';
+import App from 'App';
+
+import './index.css';
 
 const Wrapper = () => (
   <ErrorBoundry>

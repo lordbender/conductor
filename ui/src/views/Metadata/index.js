@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import List from './List';
+import Detail from './Detail';
 
 //       { path: 'workflow/metadata', component: WorkflowMetaList },
 //       { path: 'workflow/metadata/:name/:version', component: WorkflowMetaDetails },
@@ -9,6 +10,7 @@ import List from './List';
 const MetadataRoutes = () => (
   <div>
     <Route exact path="/workflow/metadata" component={List} />
+    <Route exact path="/workflow/metadata/:name/:version" component={Detail} />
   </div>
 );
 

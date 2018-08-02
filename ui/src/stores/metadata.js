@@ -15,6 +15,9 @@ export default handleActions(
   {
     [setMetadataList]: (state, { payload }) => {
       return { ...state, list: [].concat(payload) };
+    },
+    [setMetadataDetail]: (state, { payload }) => {
+      return { ...state, detail: { ...payload } };
     }
   },
   defaultState
@@ -23,5 +26,11 @@ export default handleActions(
 export const listWorkflowDefs = () => dispatch => {
   return axios.get('/api/wfe/metadata/workflow').then(({ data: { result = [] } }) => {
     dispatch(setMetadataList(result));
+  });
+};
+
+export const getWorkflowDefDetail = (name, version) => dispatch => {
+  return axios.get(`/api/wfe/metadata/workflow/${name}/${version}`).then(({ data: { result } }) => {
+    dispatch(setMetadataDetail(result));
   });
 };
