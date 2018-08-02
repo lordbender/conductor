@@ -1,14 +1,15 @@
-import 'babel-polyfill';
-import express from 'express';
-import Bunyan from 'bunyan';
+/* eslint-disable class-methods-use-this */
+require('babel-polyfill');
+const express = require('express');
+const Bunyan = require('bunyan');
+const MiddlewareIndex = require('./middleware');
+const WorkflowRoutes = require('./routes/workflow');
+const MetadataRoutes = require('./routes/metadata');
+const SystemRoutes = require('./routes/system');
+const EventsRoutes = require('./routes/events');
+const TaskRoutes = require('./routes/tasks');
 
-import MiddlewareIndex from './middleware';
-import WorkflowRoutes from './routes/workflow';
-import MetadataRoutes from './routes/metadata';
-import SystemRoutes from './routes/system';
-import EventsRoutes from './routes/events';
-import TaskRoutes from './routes/tasks';
-
+require('dotenv').config();
 
 const log = Bunyan.createLogger({ src: true, name: 'Conductor UI' });
 
@@ -24,30 +25,30 @@ class Main {
     this.startServer(app);
   }
 
-  preMiddlewareConfig = (app, middlewareIndex) => {
+  preMiddlewareConfig(app, middlewareIndex) {
     middlewareIndex.before(app);
-  };
+  }
 
-  staticConfig = app => {
+  staticConfig(app) {
     const staticContent = express.static('public');
 
     app.use('/', staticContent);
     app.use('/workflow/*', staticContent);
-  };
+  }
 
-  routesConfig = app => {
+  routesConfig(app) {
     new WorkflowRoutes().init(app);
     new MetadataRoutes().init(app);
     new TaskRoutes().init(app);
     new SystemRoutes().init(app);
     new EventsRoutes().init(app);
-  };
+  }
 
-  postMiddlewareConfig = (app, middlewareIndex) => {
+  postMiddlewareConfig(app, middlewareIndex) {
     middlewareIndex.after(app);
-  };
+  }
 
-  startServer = app => {
+  startServer(app) {
     const server = app.listen(process.env.NODE_PORT || 5000, () => {
       const { address: host, port } = server.address();
 
@@ -56,9 +57,7 @@ class Main {
         process.send('online');
       }
     });
-  };
+  }
 }
 
-const main = new Main();
-
-main.init();
+new Main().init();

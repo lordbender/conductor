@@ -1,4 +1,5 @@
-import axios from 'axios';
+/* eslint-disable class-methods-use-this */
+const axios = require('axios');
 
 class BaseService {
   constructor() {
@@ -6,13 +7,15 @@ class BaseService {
     this.hostName = WF_SERVER;
   }
 
-  handleError = e => {
+  handleError(e) {
     // eslint-disable-next-line no-console
     console.error(e);
     return e;
-  };
+  }
 
-  config = token => (token ? { Authorization: token } : {});
+  config(token) {
+    return token ? { Authorization: token } : {};
+  }
 
   async get(url, token) {
     try {
