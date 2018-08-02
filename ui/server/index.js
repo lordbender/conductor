@@ -1,5 +1,4 @@
 /* eslint-disable class-methods-use-this */
-require('babel-polyfill');
 const express = require('express');
 const Bunyan = require('bunyan');
 const MiddlewareIndex = require('./middleware');
