@@ -38,7 +38,7 @@ class List extends React.Component {
               </tr>
             ))}
           </tbody>
-        </Table>;
+        </Table>
       </div>
     );
   }
