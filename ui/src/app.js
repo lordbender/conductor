@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import HomeRoutes from './views/Home';
-import MetadataRoutes from './views/Metadata';
+import HomeRoutes from 'views/Home';
+import MetadataRoutes from 'views/Metadata';
+import WorkflowRoutes from 'views/Workflow';
 // import Footer from './components/Footer';
-import LeftMenu from './components/LeftMenu';
+import LeftMenu from 'components/LeftMenu';
 
 const Container = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ const App = () => (
     <Column width="80%" padding={15}>
       <HomeRoutes />
       <MetadataRoutes />
+      <WorkflowRoutes />
     </Column>
     {/* <Footer /> */}
   </Container>

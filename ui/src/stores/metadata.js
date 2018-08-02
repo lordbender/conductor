@@ -10,7 +10,6 @@ const prefix = 'METADATA';
 export const setMetadataList = createAction(`${prefix}/SET_METADATA_LIST`);
 export const setMetadataDetail = createAction(`${prefix}/SET_METADATA_DETAIL`);
 
-// https://redux-actions.js.org/introduction/tutorial
 export default handleActions(
   {
     [setMetadataList]: (state, { payload }) => {

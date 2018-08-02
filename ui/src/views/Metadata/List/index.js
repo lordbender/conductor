@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Table, Button } from 'react-bootstrap';
-import { listWorkflowDefs } from '../../../stores/metadata';
+import { listWorkflowDefs } from 'stores/metadata';
 
 class List extends React.Component {
   async componentWillMount() {

@@ -1,12 +1,12 @@
 import { combineReducers, createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { composeWithDevTools } from 'redux-devtools-extension';
-// import workflow from './workflow';
+import workflow from './workflow';
 import global from './global';
 import metadata from './metadata';
 
 const store = combineReducers({
-  // workflow,
+  workflow,
   global,
   metadata
 });

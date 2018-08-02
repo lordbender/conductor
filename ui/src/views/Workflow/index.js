@@ -1,15 +1,16 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
-import Dashboard from './Dashboard';
+import List from 'views/Workflow/List';
 
-import WorkflowMetaList from './components/workflow/WorkflowMetaList';
+// import WorkflowMetaList from './components/workflow/WorkflowMetaList';
 
 //       { path: 'workflow/queue/data', component: QueueList },
 //       { path: 'workflow', component: Workflow },
 //       { path: 'workflow/id/:workflowId', component: WorkflowDetails },
+
 const WorkflowRoutes = () => (
   <div>
-    <Route exact path="/" component={Dashboard} />
+    <Route exact path="/workflow" component={List} />
   </div>
 );
 

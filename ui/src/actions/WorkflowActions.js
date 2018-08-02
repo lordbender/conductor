@@ -1,47 +1,46 @@
 /* eslint-disable consistent-return */
 import axios from 'axios';
 
-const searchWorkflowsByTaskId = (dispatch, search, hours, start) => {
-  return axios.get(`/api/wfe/search-by-task/${search}?h=${hours}&start=${start}`).then(({ data }) => {
-    dispatch({
-      type: 'RECEIVED_WORKFLOWS',
-      data
-    });
-  });
-};
+// const searchWorkflowsByTaskId = (dispatch, search, hours, start) => {
+//   return axios.get(`/api/wfe/search-by-task/${search}?h=${hours}&start=${start}`).then(({ data }) => {
+//     dispatch({
+//       type: 'RECEIVED_WORKFLOWS',
+//       data
+//     });
+//   });
+// };
 
-export const searchWorkflows = (query, search, hours, fullstr, start) => {
-  return dispatch => {
-    dispatch({
-      type: 'GET_WORKFLOWS',
-      search
-    });
+// export const searchWorkflows = (query, search, hours, fullstr, start) => {
+//   return dispatch => {
+//     dispatch({
+//       type: 'GET_WORKFLOWS',
+//       search
+//     });
 
-
-    return axios
-      .get(
-        `/api/wfe?q=${query}&h=${hours}&freeText=${
-          fullstr && search != null && search.length > 0 ? `"${search}"` : search
-        }&start=${start}`
-      )
-      .then(({ data }) => {
-        if (data && data.result && data.result.totalHits > 0) {
-          dispatch({
-            type: 'RECEIVED_WORKFLOWS',
-            data
-          });
-        } else if (search !== '') {
-          return searchWorkflowsByTaskId(dispatch, search, hours, start);
-        }
-      })
-      .catch(e => {
-        dispatch({
-          type: 'REQUEST_ERROR',
-          e
-        });
-      });
-  };
-};
+//     return axios
+//       .get(
+//         `/api/wfe?q=${query}&h=${hours}&freeText=${
+//           fullstr && search != null && search.length > 0 ? `"${search}"` : search
+//         }&start=${start}`
+//       )
+//       .then(({ data }) => {
+//         if (data && data.result && data.result.totalHits > 0) {
+//           dispatch({
+//             type: 'RECEIVED_WORKFLOWS',
+//             data
+//           });
+//         } else if (search !== '') {
+//           return searchWorkflowsByTaskId(dispatch, search, hours, start);
+//         }
+//       })
+//       .catch(e => {
+//         dispatch({
+//           type: 'REQUEST_ERROR',
+//           e
+//         });
+//       });
+//   };
+// };
 
 export const getWorkflowDetails = workflowId => {
   return dispatch => {
