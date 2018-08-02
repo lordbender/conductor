@@ -1,4 +1,6 @@
 /* eslint-disable class-methods-use-this */
+require('dotenv').config();
+
 const express = require('express');
 const Bunyan = require('bunyan');
 const MiddlewareIndex = require('./middleware');
@@ -7,8 +9,6 @@ const MetadataRoutes = require('./routes/metadata');
 const SystemRoutes = require('./routes/system');
 const EventsRoutes = require('./routes/events');
 const TaskRoutes = require('./routes/tasks');
-
-require('dotenv').config();
 
 const log = Bunyan.createLogger({ src: true, name: 'Conductor UI' });
 
