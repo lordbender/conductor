@@ -4,8 +4,8 @@ import moment from 'moment';
 import map from 'lodash/fp/map';
 import Clipboard from 'clipboard';
 import { OverlayTrigger, Button, Popover, Panel, Table, Tabs, Tab } from 'react-bootstrap';
-import WorkflowAction from './WorkflowAction';
-import WorkflowMetaDia from '../WorkflowMetaDia';
+import WorkflowAction from 'components/workflow/executions/WorkflowAction';
+import WorkflowMetaDia from 'components/workflow/WorkflowMetaDia';
 
 new Clipboard('.btn');
 
@@ -30,11 +30,11 @@ function workerLink(type, cell) {
   if (cell == null) {
     return '';
   }
-  let href = sys.env[type] || '#';
+  let href = window.sys.env[type] || '#';
   if (href !== '#') {
     href = href.replace('%s', cell);
   } else {
-    href = sys.env.WORKER_LINK;
+    href = window.sys.env.WORKER_LINK;
     href = href || '#';
     href = href.replace('%s', cell);
   }
@@ -129,14 +129,11 @@ function showFailure(wf) {
 }
 
 class WorkflowDetails extends React.Component {
-  constructor(props) {
-    super(props);
-
-    axios.get('/api/sys/').then(({ data: sys }) => {
+  async componentWillMount() {
+    await axios.get('/api/sys/').then(({ data: sys }) => {
       window.sys = sys;
     });
   }
-
   // componentWillReceiveProps(nextProps) {
   //   if (this.props.hash !== nextProps.hash) {
   //     this.props.dispatch(getWorkflowDetails(nextProps.params.workflowId));
