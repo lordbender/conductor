@@ -1,13 +1,11 @@
 import React from 'react';
+import uuid from 'uuid';
 import axios from 'axios';
 import moment from 'moment';
 import map from 'lodash/fp/map';
-import Clipboard from 'clipboard';
 import { OverlayTrigger, Button, Popover, Panel, Table, Tabs, Tab } from 'react-bootstrap';
 import WorkflowAction from 'components/workflow/executions/WorkflowAction';
 import WorkflowMetaDia from 'components/workflow/WorkflowMetaDia';
-
-new Clipboard('.btn');
 
 function formatDate(dt) {
   if (dt == null || dt === '') {
@@ -149,7 +147,7 @@ class WorkflowDetails extends React.Component {
   // }
 
   render() {
-    let wf = this.props.data;
+    let { workflow: wf, metadata } = this.props;
     if (wf == null) {
       wf = {};
     }
@@ -204,9 +202,9 @@ class WorkflowDetails extends React.Component {
           </thead>
         </Table>
 
-        <Tabs>
+        <Tabs id="controlled-tab-example">
           <Tab eventKey={1} title="Execution Flow">
-            <WorkflowMetaDia meta={this.props.meta} wfe={wf} subworkflows={this.props.subworkflows} />
+            <WorkflowMetaDia meta={metadata} wfe={wf} subworkflows={this.props.subworkflows} />
           </Tab>
           <Tab eventKey={2} title="Task Details">
             <Table responsive striped hover condensed={false} bordered>

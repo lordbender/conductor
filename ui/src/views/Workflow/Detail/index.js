@@ -16,14 +16,12 @@ class List extends React.Component {
   }
 
   render() {
-    const { workflow = {}, workflowDef = [] } = this.props;
+    const { workflow = {}, metadata = [] } = this.props;
 
     return (
       <div className="ui-content">
         <h1>Workflow</h1>
-        <WorkflowDetails data={workflow} />
-        <pre>{JSON.stringify(workflow, null, 2)}</pre>
-        <pre>{JSON.stringify(workflowDef, null, 2)}</pre>
+        <WorkflowDetails workflow={workflow} metadata={metadata} />
       </div>
     );
   }
@@ -32,7 +30,7 @@ class List extends React.Component {
 export default connect(
   state => ({
     workflow: state.workflow.detail,
-    workflowDef: state.metadata.detail
+    metadata: state.metadata.detail
   }),
   { getWorkflowById, getWorkflowDefDetail }
 )(List);
