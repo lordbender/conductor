@@ -43,12 +43,12 @@ const workflowMenuItems = [
   },
   {
     label: 'Workflow Defs',
-    href: '/workflow/metadata',
+    href: '/metadata',
     icon: 'fa-code-fork'
   },
   {
     label: 'Tasks',
-    href: '/workflow/metadata/tasks',
+    href: '/metadata/tasks',
     icon: 'fa-tasks'
   },
   {

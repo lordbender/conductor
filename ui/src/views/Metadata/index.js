@@ -9,8 +9,8 @@ import Detail from './Detail';
 
 const MetadataRoutes = () => (
   <div>
-    <Route exact path="/workflow/metadata" component={List} />
-    <Route exact path="/workflow/metadata/:name/:version" component={Detail} />
+    <Route exact path="/metadata" component={List} />
+    <Route exact path="/metadata/:name/:version" component={Detail} />
   </div>
 );
 

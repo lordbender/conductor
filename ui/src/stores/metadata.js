@@ -23,13 +23,13 @@ export default handleActions(
 );
 
 export const listWorkflowDefs = () => dispatch => {
-  return axios.get('/api/wfe/metadata/workflow').then(({ data: { result = [] } }) => {
+  return axios.get('/api/metadata').then(({ data: { result = [] } }) => {
     dispatch(setMetadataList(result));
   });
 };
 
 export const getWorkflowDefDetail = (name, version) => dispatch => {
-  return axios.get(`/api/wfe/metadata/workflow/${name}/${version}`).then(({ data: { result } }) => {
+  return axios.get(`/api/metadata/${name}/${version}`).then(({ data: { result } }) => {
     dispatch(setMetadataDetail(result));
   });
 };

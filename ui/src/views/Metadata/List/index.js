@@ -28,7 +28,7 @@ class List extends React.Component {
                 <td>
                   <Button
                     bsStyle="link"
-                    onClick={() => this.props.history.push(`/workflow/metadata/${name}/${version}`)}
+                    onClick={() => this.props.history.push(`/metadata/${name}/${version}`)}
                   >
                     {`${name} / ${version}`}
                   </Button>

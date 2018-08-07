@@ -6,7 +6,7 @@ class MetadataRoutes {
   }
 
   init(app) {
-    app.get('/api/wfe/metadata/workflow', async (req, res, next) => {
+    app.get('/api/metadata', async (req, res, next) => {
       try {
         const { token } = req;
 
@@ -17,13 +17,14 @@ class MetadataRoutes {
       }
     });
 
-    app.get('/api/wfe/metadata/workflow/:name/:version', async (req, res, next) => {
+    app.get('/api/metadata/:name/:version', async (req, res, next) => {
       try {
         const {
           params: { name, version },
           token
         } = req;
 
+        console.log(name, version);
         const result = await this.metadataService.getByName(name, version, token);
         res.status(200).json(result);
       } catch (err) {

@@ -33,7 +33,7 @@ class WorkflowRoutes {
       }
     });
 
-    app.get('/api/wfe/id/:workflowId', async (req, res, next) => {
+    app.get('/api/wfe/:workflowId', async (req, res, next) => {
       try {
         const {
           params: { workflowId },

@@ -42,29 +42,29 @@ import axios from 'axios';
 //   };
 // };
 
-export const getWorkflowDetails = workflowId => {
-  return dispatch => {
-    dispatch({
-      type: 'GET_WORKFLOW_DETAILS',
-      workflowId
-    });
+// export const getWorkflowDetails = workflowId => {
+//   return dispatch => {
+//     dispatch({
+//       type: 'GET_WORKFLOW_DETAILS',
+//       workflowId
+//     });
 
-    return axios
-      .get(`/api/wfe/id/${workflowId}`)
-      .then(({ data }) => {
-        dispatch({
-          type: 'RECEIVED_WORKFLOW_DETAILS',
-          data
-        });
-      })
-      .catch(e => {
-        dispatch({
-          type: 'REQUEST_ERROR',
-          e
-        });
-      });
-  };
-};
+//     return axios
+//       .get(`/api/wfe/id/${workflowId}`)
+//       .then(({ data }) => {
+//         dispatch({
+//           type: 'RECEIVED_WORKFLOW_DETAILS',
+//           data
+//         });
+//       })
+//       .catch(e => {
+//         dispatch({
+//           type: 'REQUEST_ERROR',
+//           e
+//         });
+//       });
+//   };
+// };
 
 export const terminateWorkflow = workflowId => {
   return dispatch => {
