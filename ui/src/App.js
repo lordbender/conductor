@@ -1,4 +1,5 @@
 import React from 'react';
+import { Switch } from 'react-router-dom';
 import styled from 'styled-components';
 import HomeRoutes from 'views/Home';
 import MetadataRoutes from 'views/Metadata';
