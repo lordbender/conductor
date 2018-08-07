@@ -14,11 +14,11 @@ class BaseService {
   }
 
   // eslint-disable-next-line no-confusing-arrow
-  config = token =>
-    token
+  config(token) {
+    return token
       ? { headers: { Accept: 'application/json', Authorization: token } }
       : { headers: { Accept: 'application/json' } };
-
+  }
   async get(url, token) {
     try {
       const { data } = await axios({ ...this.config(token), method: 'GET', url: `${this.hostName}${url}` });
