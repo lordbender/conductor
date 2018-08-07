@@ -3,13 +3,9 @@ import axios from 'axios';
 import moment from 'moment';
 import map from 'lodash/fp/map';
 import Clipboard from 'clipboard';
-import { connect } from 'react-redux';
-import { OverlayTrigger, Button, Popover, Panel, Table } from 'react-bootstrap';
-import { getWorkflowDetails } from '../../../actions/WorkflowActions';
+import { OverlayTrigger, Button, Popover, Panel, Table, Tabs, Tab } from 'react-bootstrap';
 import WorkflowAction from './WorkflowAction';
 import WorkflowMetaDia from '../WorkflowMetaDia';
-import Tab from '../../common/Tab';
-import TabContainer from '../../common/TabContainer';
 
 new Clipboard('.btn');
 
@@ -141,19 +137,19 @@ class WorkflowDetails extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.hash !== nextProps.hash) {
-      this.props.dispatch(getWorkflowDetails(nextProps.params.workflowId));
-    }
-  }
+  // componentWillReceiveProps(nextProps) {
+  //   if (this.props.hash !== nextProps.hash) {
+  //     this.props.dispatch(getWorkflowDetails(nextProps.params.workflowId));
+  //   }
+  // }
 
-  shouldComponentUpdate(nextProps) {
-    if (nextProps.refetch) {
-      this.props.dispatch(getWorkflowDetails(nextProps.params.workflowId));
-      return false;
-    }
-    return true;
-  }
+  // shouldComponentUpdate(nextProps) {
+  //   if (nextProps.refetch) {
+  //     this.props.dispatch(getWorkflowDetails(nextProps.params.workflowId));
+  //     return false;
+  //   }
+  //   return true;
+  // }
 
   render() {
     let wf = this.props.data;
@@ -211,7 +207,7 @@ class WorkflowDetails extends React.Component {
           </thead>
         </Table>
 
-        <TabContainer>
+        <Tabs>
           <Tab eventKey={1} title="Execution Flow">
             <WorkflowMetaDia meta={this.props.meta} wfe={wf} subworkflows={this.props.subworkflows} />
           </Tab>
@@ -267,10 +263,10 @@ class WorkflowDetails extends React.Component {
               {JSON.stringify(wf, null, 3)}
             </pre>
           </Tab>
-        </TabContainer>
+        </Tabs>
       </div>
     );
   }
 }
 
-export default connect(state => state.workflow)(WorkflowDetails);
+export default WorkflowDetails;

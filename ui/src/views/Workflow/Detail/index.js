@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { getWorkflowById } from 'stores/workflow';
 import { getWorkflowDefDetail } from 'stores/metadata';
+import WorkflowDetails from 'views/Workflow/Detail/WorkflowDetails';
 
 class List extends React.Component {
   async componentWillMount() {
@@ -20,6 +21,7 @@ class List extends React.Component {
     return (
       <div className="ui-content">
         <h1>Workflow</h1>
+        <WorkflowDetails data={workflow} />
         <pre>{JSON.stringify(workflow, null, 2)}</pre>
         <pre>{JSON.stringify(workflowDef, null, 2)}</pre>
       </div>

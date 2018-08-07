@@ -24,7 +24,6 @@ class MetadataRoutes {
           token
         } = req;
 
-        console.log(name, version);
         const result = await this.metadataService.getByName(name, version, token);
         res.status(200).json(result);
       } catch (err) {
