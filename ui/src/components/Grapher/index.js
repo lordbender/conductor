@@ -186,7 +186,7 @@ class Grapher extends Component {
           ref={this.setPropsDivRef}
           style={{ overflowX: 'scroll', display: this.state.showSideBar ? '' : 'none', padding: '5px 5px 10px 10px' }}
         >
-          <h4 className="propsheader">
+          <h4 className="props-header">
             <i className="fa fa-close fa-1x close-btn" onClick={hideProps} />
             {this.state.selectedTask.taskType} ({this.state.selectedTask.status})
           </h4>
@@ -283,7 +283,7 @@ class Grapher extends Component {
             zIndex: this.state.showSubGraph ? '' : '-100'
           }}
         >
-          <h4 className="propsheader">
+          <h4 className="props-header">
             <i className="fa fa-close fa-1x close-btn" onClick={hidesub} />
             <a onClick={showSubGraphDetails}>Sub Workflow Details</a>
           </h4>

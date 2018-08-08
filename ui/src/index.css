@@ -1,0 +1,53 @@
+.props-header {
+    padding-top: 5px;
+    margin-left: -10px;
+    padding-bottom: 20px;
+    margin-top: -5px;
+    display: block;
+    min-width: 100%;
+    background-color: rgba(217,237,247,.5);
+  }
+
+  .close-btn {
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-top: 10px;
+    border: solid 10px #ffffff;
+    border-radius: 300px;
+    box-shadow: 1px 1px 1px 1px #cccccc;
+    background-color: #ffffff;
+  }
+
+  .node rect {
+    stroke: #cccccc;
+    fill: #fff;
+    stroke-width: 0.6px;
+  }
+  
+  .node polygon {
+    stroke: #555;
+    fill: #fff;
+    stroke-width: 0.6px;
+  }
+
+  .node circle {
+    stroke: #555;
+    fill: #fff;
+    stroke-width: 0.6px;
+  }
+
+  .arrowhead {
+    stroke: blue;
+    fill: blue;
+    stroke-width: 1.5px;
+  }
+
+  .edgePath path {
+    stroke: #333;
+    fill: #333;
+    stroke-width: 1.5px;
+  }
+
+  .edgeLabel {
+    fill: blue;
+  }

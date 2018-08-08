@@ -267,7 +267,7 @@ class WorkflowDetails extends React.Component {
             </div>
           </TabContainer>
         )}
-        {value === 2 && (
+        {value === 3 && (
           <TabContainer>
             <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#fulljson" />
             <pre style={{ height: '80%' }} id="fulljson">
