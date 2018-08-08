@@ -2,7 +2,9 @@ import React from 'react';
 import axios from 'axios';
 import moment from 'moment';
 import map from 'lodash/fp/map';
-import { OverlayTrigger, Button, Popover, Panel, Table, Tabs, Tab } from 'react-bootstrap';
+import { OverlayTrigger, Button, Popover, Panel, Table } from 'react-bootstrap';
+import { Tabs, Tab } from '@material-ui/core';
+import TabContainer from 'components/TabContainer';
 import WorkflowAction from 'components/workflow/executions/WorkflowAction';
 import WorkflowMetaDia from 'components/workflow/WorkflowMetaDia';
 
@@ -126,38 +128,54 @@ function showFailure(wf) {
 }
 
 class WorkflowDetails extends React.Component {
+  state = {
+    value: 0
+  };
+
   async componentWillMount() {
     await axios.get('/api/sys/').then(({ data: sys }) => {
       window.sys = sys;
     });
   }
 
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
   render() {
-    let { workflow: wf, metadata } = this.props;
-    if (wf == null) {
-      wf = {};
-    }
-    if (wf.tasks == null) {
-      wf.tasks = [];
-    }
-    let tasks = wf.tasks;
-    tasks = tasks.sort((a, b) => {
-      return a.seq - b.seq;
-    });
+    const {
+      workflow: {
+        input,
+        correlationId,
+        ownerApp,
+        version,
+        workflowId,
+        status,
+        workflowType,
+        startTime,
+        endTime,
+        output,
+        reasonForIncompletion,
+        tasks = []
+      },
+      workflow,
+      subworkflows = {},
+      metadata
+    } = this.props;
+
+    const { value } = this.state;
+
+    const sortedTasks = tasks.sort((a, b) => a.seq - b.seq);
 
     return (
       <div className="ui-content">
         <h4>
-          {wf.workflowType}/{wf.version}
-          <span
-            className={
-              wf.status === 'FAILED' || wf.status === 'TERMINATED' || wf.status === 'TIMED_OUT' ? 'red' : 'green'
-            }
-          >
-            {wf.status}
+          {workflowType}/{version}
+          <span className={status === 'FAILED' || status === 'TERMINATED' || status === 'TIMED_OUT' ? 'red' : 'green'}>
+            {status}
           </span>
           <span>
-            <WorkflowAction workflowStatus={wf.status} workflowId={wf.workflowId} />
+            <WorkflowAction workflowStatus={status} workflowId={workflowId} />
           </span>
         </h4>
         <br />
@@ -172,27 +190,35 @@ class WorkflowDetails extends React.Component {
               <th>Correlation ID</th>
             </tr>
             <tr>
-              <td>{wf.workflowId}</td>
-              <td>{wf.ownerApp}</td>
-              <td>{execTime(wf.endTime, wf.startTime)}</td>
+              <td>{workflowId}</td>
+              <td>{ownerApp}</td>
+              <td>{execTime(endTime, startTime)}</td>
               <td>
-                {formatDate(wf.startTime)} - {formatDate(wf.endTime)}
+                {formatDate(startTime)} - {formatDate(endTime)}
               </td>
-              <td>{wf.correlationId}</td>
+              <td>{correlationId}</td>
             </tr>
-            <tr style={{ display: showFailure(wf) }}>
+            <tr style={{ display: showFailure(workflow) }}>
               <td style={{ color: '#ff0000' }} colSpan={5}>
-                {getFailureReason(wf)}
+                {getFailureReason(workflow)}
               </td>
             </tr>
           </thead>
         </Table>
 
-        <Tabs id="metadata-wrapper-main">
-          <Tab eventKey={1} title="Execution Flow">
-            <WorkflowMetaDia meta={metadata} wf={wf} subworkflows={this.props.subworkflows} />
-          </Tab>
-          <Tab eventKey={2} title="Task Details">
+        <Tabs value={value} onChange={this.handleChange}>
+          <Tab label="Execution Flow" />
+          <Tab label="Task Details" />
+          <Tab label="Input/Output" />
+          <Tab label="JSON" />
+        </Tabs>
+        {value === 0 && (
+          <TabContainer>
+            <WorkflowMetaDia meta={metadata} wf={workflow} subworkflows={subworkflows} />
+          </TabContainer>
+        )}
+        {value === 1 && (
+          <TabContainer>
             <Table responsive striped hover condensed={false} bordered>
               <thead>
                 <tr>
@@ -208,43 +234,47 @@ class WorkflowDetails extends React.Component {
                   <th>Details</th>
                 </tr>
               </thead>
-              {tableBody(tasks)}
+              {tableBody(sortedTasks)}
             </Table>
             <br />
-          </Tab>
-          <Tab eventKey={3} title="Input/Output">
+          </TabContainer>
+        )}
+        {value === 2 && (
+          <TabContainer>
             <div>
               <strong>
                 Workflow Input{' '}
                 <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#wfinput" />
               </strong>
               <pre style={{ height: '200px' }} id="wfinput">
-                {JSON.stringify(wf.input, null, 3)}
+                {JSON.stringify(input, null, 3)}
               </pre>
               <strong>
                 Workflow Output{' '}
                 <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#wfoutput" />
               </strong>
               <pre style={{ height: '200px' }} id="wfoutput">
-                {JSON.stringify(wf.output == null ? {} : wf.output, null, 3)}
+                {JSON.stringify(output == null ? {} : output, null, 3)}
               </pre>
-              {wf.status === 'FAILED' ? (
+              {status === 'FAILED' ? (
                 <div>
                   <strong>Workflow Faiure Reason (if any)</strong>
-                  <pre>{wf.reasonForIncompletion ? JSON.stringify(wf.reasonForIncompletion, null, 3) : ''}</pre>
+                  <pre>{reasonForIncompletion ? JSON.stringify(reasonForIncompletion, null, 3) : ''}</pre>
                 </div>
               ) : (
                 ''
               )}
             </div>
-          </Tab>
-          <Tab eventKey={4} title="JSON">
+          </TabContainer>
+        )}
+        {value === 2 && (
+          <TabContainer>
             <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#fulljson" />
             <pre style={{ height: '80%' }} id="fulljson">
-              {JSON.stringify(wf, null, 3)}
+              {JSON.stringify(workflow, null, 3)}
             </pre>
-          </Tab>
-        </Tabs>
+          </TabContainer>
+        )}
       </div>
     );
   }

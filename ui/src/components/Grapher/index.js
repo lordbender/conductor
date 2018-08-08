@@ -2,16 +2,18 @@
 import React, { Component } from 'react';
 import dagreD3 from 'dagre-d3';
 import d3 from 'd3';
-import { Tabs, Tab, Table } from 'react-bootstrap';
-import Clipboard from 'clipboard';
-
-new Clipboard('.btn');
+import { Table } from 'react-bootstrap';
+import { Tabs, Tab } from '@material-ui/core';
+import TabContainer from 'components/TabContainer';
 
 class Grapher extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      value: 0
+    };
+
     this.state.selectedTask = {};
     this.state.logs = {};
     this.grapher = new dagreD3.render();
@@ -68,20 +70,25 @@ class Grapher extends Component {
     this.forceUpdate();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.state.innerGraph = nextProps.innerGraph;
+  componentWillReceiveProps({ innerGraph }) {
+    this.setState({ innerGraph });
   }
 
   getSubGraph() {
-    const subg = this.state.subGraph;
+    const { subGraph: subg } = this.state;
     if (subg == null) {
       return '';
     }
     return <Grapher edges={subg.n} vertices={subg.vx} layout={subg.layout} />;
   }
 
+  handleChange = (event, value) => {
+    this.setState({ value });
+  };
+
   render() {
     const { layout, edges, vertices } = this.props;
+    const { value } = this.state;
 
     const g = new dagreD3.graphlib.Graph().setGraph({ rankdir: layout });
 
@@ -129,17 +136,17 @@ class Grapher extends Component {
       window.open(`#/workflow/id/${id}`, '_new');
     };
 
-    const hidesub = function() {
+    const hidesub = () => {
       p.setState({ showSubGraph: false });
     };
 
-    const hideProps = function() {
+    const hideProps = () => {
       p.setState({ showSideBar: false });
     };
 
     inner.selectAll('g.node').on('click', v => {
       if (innerGraph[v] != null) {
-        const data = vertices[v].data;
+        const { data } = vertices[v];
 
         const n = innerGraph[v].edges;
         const vx = innerGraph[v].vertices;
@@ -161,7 +168,7 @@ class Grapher extends Component {
         });
         p.setState({ showSubGraph: true });
       } else if (vertices[v].tooltip != null) {
-        const data = vertices[v].data;
+        const { data } = vertices[v];
         p.propsDivElem.style.left = `${window.innerWidth / 2 + 100}px`;
         p.propsDivElem.style.width = `${window.innerWidth / 2 - 100}px`;
         p.propsDivElem.style.height = `${window.innerHeight}px`;
@@ -191,8 +198,13 @@ class Grapher extends Component {
           >
             {this.state.selectedTask.reasonForIncompletion}
           </div>
-          <Tabs id="grapher-wrapper" defaultActiveKey={1}>
-            <Tab eventKey={1} title="Summary">
+          <Tabs value={value} onChange={this.handleChange}>
+            <Tab label="Summary" />
+            <Tab label="JSON" />
+            <Tab label="Logs" />
+          </Tabs>
+          {value === 0 && (
+            <TabContainer>
               <Table responsive striped={false} hover={false} condensed={false} bordered>
                 <tbody>
                   <tr>
@@ -212,7 +224,7 @@ class Grapher extends Component {
                   </tr>
                   <tr>
                     <th colSpan="4">
-                      Input{' '}
+                      Input
                       <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#t_input" />
                     </th>
                   </tr>
@@ -225,7 +237,7 @@ class Grapher extends Component {
                   </tr>
                   <tr>
                     <th colSpan="4">
-                      Output{' '}
+                      Output
                       <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#t_output" />
                     </th>
                   </tr>
@@ -238,18 +250,22 @@ class Grapher extends Component {
                   </tr>
                 </tbody>
               </Table>
-            </Tab>
-            <Tab eventKey={2} title="JSON">
+            </TabContainer>
+          )}
+          {value === 1 && (
+            <TabContainer>
               <br />
               <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#t_json" />
               <pre id="t_json">{JSON.stringify(this.state.selectedTask, null, 3)}</pre>
-            </Tab>
-            <Tab eventKey={3} title="Logs">
+            </TabContainer>
+          )}
+          {value === 2 && (
+            <TabContainer>
               <br />
               <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#t_logs" />
               <pre id="t_logs">{JSON.stringify(this.state.selectedTask.logs, null, 3)}</pre>
-            </Tab>
-          </Tabs>
+            </TabContainer>
+          )}
         </div>
         <div style={{ overflowX: 'auto', width: '100%' }}>
           <svg ref={this.setSvgRef}>
