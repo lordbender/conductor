@@ -1,5 +1,4 @@
 import React from 'react';
-import uuid from 'uuid';
 import axios from 'axios';
 import moment from 'moment';
 import map from 'lodash/fp/map';
@@ -132,19 +131,6 @@ class WorkflowDetails extends React.Component {
       window.sys = sys;
     });
   }
-  // componentWillReceiveProps(nextProps) {
-  //   if (this.props.hash !== nextProps.hash) {
-  //     this.props.dispatch(getWorkflowDetails(nextProps.params.workflowId));
-  //   }
-  // }
-
-  // shouldComponentUpdate(nextProps) {
-  //   if (nextProps.refetch) {
-  //     this.props.dispatch(getWorkflowDetails(nextProps.params.workflowId));
-  //     return false;
-  //   }
-  //   return true;
-  // }
 
   render() {
     let { workflow: wf, metadata } = this.props;
@@ -202,9 +188,9 @@ class WorkflowDetails extends React.Component {
           </thead>
         </Table>
 
-        <Tabs id="controlled-tab-example">
+        <Tabs id="metadata-wrapper-main">
           <Tab eventKey={1} title="Execution Flow">
-            <WorkflowMetaDia meta={metadata} wfe={wf} subworkflows={this.props.subworkflows} />
+            <WorkflowMetaDia meta={metadata} wf={wf} subworkflows={this.props.subworkflows} />
           </Tab>
           <Tab eventKey={2} title="Task Details">
             <Table responsive striped hover condensed={false} bordered>

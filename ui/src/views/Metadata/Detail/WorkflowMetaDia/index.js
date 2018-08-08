@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import defaultTo from 'lodash/fp/defaultTo';
-import Grapher from 'components/common/Grapher';
+import Grapher from 'components/Grapher';
 import Workflow2Graph from 'core/wfegraph';
 
 class WorkflowMetaDia extends Component {

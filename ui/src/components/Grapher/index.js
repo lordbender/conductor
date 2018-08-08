@@ -191,7 +191,7 @@ class Grapher extends Component {
           >
             {this.state.selectedTask.reasonForIncompletion}
           </div>
-          <Tabs defaultActiveKey={1}>
+          <Tabs id="grapher-wrapper" defaultActiveKey={1}>
             <Tab eventKey={1} title="Summary">
               <Table responsive striped={false} hover={false} condensed={false} bordered>
                 <tbody>

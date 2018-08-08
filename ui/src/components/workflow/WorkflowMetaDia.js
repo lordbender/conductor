@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Grapher from 'components/common/Grapher';
+import Grapher from 'components/Grapher';
 import Workflow2Graph from 'core/wfegraph';
 import defaultTo from 'lodash/fp/defaultTo';
 
