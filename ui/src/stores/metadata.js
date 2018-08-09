@@ -1,5 +1,5 @@
-import { createAction, handleActions } from 'redux-actions';
 import axios from 'axios';
+import { createAction, handleActions } from 'redux-actions';
 
 const defaultState = {
   list: [],

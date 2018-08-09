@@ -2,20 +2,17 @@
 import React, { Component } from 'react';
 import dagreD3 from 'dagre-d3';
 import d3 from 'd3';
-import { Table } from 'react-bootstrap';
-import { Tabs, Tab } from '@material-ui/core';
-import TabContainer from 'components/TabContainer';
+import PopOver from './PopOver';
 
 class Grapher extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      value: 0
+      selectedTask: {},
+      logs: {}
     };
 
-    this.state.selectedTask = {};
-    this.state.logs = {};
     this.grapher = new dagreD3.render();
 
     this.setSvgRef = elem => (this.svgElem = elem);
@@ -39,7 +36,7 @@ class Grapher extends Component {
       return results;
     };
 
-    this.grapher.shapes().house = function(parent, bbox, node) {
+    this.grapher.shapes().house = (parent, bbox, node) => {
       let w = bbox.width,
         h = bbox.height,
         points = [{ x: 0, y: 0 }, { x: w, y: 0 }, { x: w, y: -h }, { x: w / 2, y: (-h * 3) / 2 }, { x: 0, y: -h }];
@@ -82,14 +79,13 @@ class Grapher extends Component {
     return <Grapher edges={subg.n} vertices={subg.vx} layout={subg.layout} />;
   }
 
-  handleChange = (event, value) => {
-    this.setState({ value });
+  togleSidePopover = () => {
+    this.setState({ showSideBar: !this.state.showSideBar });
   };
 
   render() {
     const { layout, edges, vertices } = this.props;
-    const { value } = this.state;
-
+    const { selectedTask, showSideBar } = this.state;
     const g = new dagreD3.graphlib.Graph().setGraph({ rankdir: layout });
 
     for (const vk in vertices) {
@@ -140,10 +136,6 @@ class Grapher extends Component {
       p.setState({ showSubGraph: false });
     };
 
-    const hideProps = () => {
-      p.setState({ showSideBar: false });
-    };
-
     inner.selectAll('g.node').on('click', v => {
       if (innerGraph[v] != null) {
         const { data } = vertices[v];
@@ -151,13 +143,6 @@ class Grapher extends Component {
         const n = innerGraph[v].edges;
         const vx = innerGraph[v].vertices;
         const subg = { n, vx, layout };
-
-        p.propsDivElem.style.left = `${window.innerWidth / 2 + 100}px`;
-        p.propsDivElem.style.width = `${window.innerWidth / 2 - 100}px`;
-        p.propsDivElem.style.overflowX = 'scroll';
-        p.propsDivElem.style.height = `${window.innerHeight}px`;
-        p.divElem.style.width = `${window.outerWidth / 2 - 100}px`;
-        p.divElem.style.display = 'inline-block';
 
         p.setState({
           selectedTask: data.task,
@@ -169,110 +154,18 @@ class Grapher extends Component {
         p.setState({ showSubGraph: true });
       } else if (vertices[v].tooltip != null) {
         const { data } = vertices[v];
-        p.propsDivElem.style.left = `${window.innerWidth / 2 + 100}px`;
-        p.propsDivElem.style.width = `${window.innerWidth / 2 - 100}px`;
-        p.propsDivElem.style.height = `${window.innerHeight}px`;
-
-        p.propsDivElem.style.position = 'fixed';
-        p.propsDivElem.style.display = 'block';
         p.setState({ selectedTask: data.task, showSideBar: true, subGraph: null, showSubGraph: false });
       }
     });
 
     return (
       <div className="graph-ui-content" id="graph-ui-content">
-        <div
-          className="right-prop-overlay"
-          ref={this.setPropsDivRef}
-          style={{ overflowX: 'scroll', display: this.state.showSideBar ? '' : 'none', padding: '5px 5px 10px 10px' }}
-        >
-          <h4 className="props-header">
-            <i className="fa fa-close fa-1x close-btn" onClick={hideProps} />
-            {this.state.selectedTask.taskType} ({this.state.selectedTask.status})
-          </h4>
-          <div
-            style={{
-              color: '#ff0000',
-              display: this.state.selectedTask.status === 'FAILED' ? '' : 'none'
-            }}
-          >
-            {this.state.selectedTask.reasonForIncompletion}
-          </div>
-          <Tabs value={value} onChange={this.handleChange}>
-            <Tab label="Summary" />
-            <Tab label="JSON" />
-            <Tab label="Logs" />
-          </Tabs>
-          {value === 0 && (
-            <TabContainer>
-              <Table responsive striped={false} hover={false} condensed={false} bordered>
-                <tbody>
-                  <tr>
-                    <th>Task Ref. Name</th>
-                    <td colSpan="3" style={{ colSpan: 3 }}>
-                      {this.state.selectedTask.referenceTaskName}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th>Poll Count</th>
-                    <td>{this.state.selectedTask.pollCount}</td>
-                    <th>Callback After</th>
-                    <td>
-                      {this.state.selectedTask.callbackAfterSeconds ? this.state.selectedTask.callbackAfterSeconds : 0}{' '}
-                      (second)
-                    </td>
-                  </tr>
-                  <tr>
-                    <th colSpan="4">
-                      Input
-                      <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#t_input" />
-                    </th>
-                  </tr>
-                  <tr>
-                    <td colSpan="4">
-                      <pre style={{ width: `${window.outerWidth / 2 - 140}px` }} id="t_input">
-                        {JSON.stringify(this.state.selectedTask.inputData, null, 3)}
-                      </pre>
-                    </td>
-                  </tr>
-                  <tr>
-                    <th colSpan="4">
-                      Output
-                      <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#t_output" />
-                    </th>
-                  </tr>
-                  <tr>
-                    <td colSpan="4">
-                      <pre style={{ width: `${window.outerWidth / 2 - 140}px` }} id="t_output">
-                        {JSON.stringify(this.state.selectedTask.outputData, null, 3)}
-                      </pre>
-                    </td>
-                  </tr>
-                </tbody>
-              </Table>
-            </TabContainer>
-          )}
-          {value === 1 && (
-            <TabContainer>
-              <br />
-              <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#t_json" />
-              <pre id="t_json">{JSON.stringify(this.state.selectedTask, null, 3)}</pre>
-            </TabContainer>
-          )}
-          {value === 2 && (
-            <TabContainer>
-              <br />
-              <i title="copy to clipboard" className="btn fa fa-clipboard" data-clipboard-target="#t_logs" />
-              <pre id="t_logs">{JSON.stringify(this.state.selectedTask.logs, null, 3)}</pre>
-            </TabContainer>
-          )}
-        </div>
+        <PopOver selectedTask={selectedTask} showSideBar={showSideBar} hideProps={this.togleSidePopover} />
         <div style={{ overflowX: 'auto', width: '100%' }}>
           <svg ref={this.setSvgRef}>
             <g transform="translate(20,20)" />
           </svg>
         </div>
-
         <div
           className="right-prop-overlay"
           ref={this.setDivRef}

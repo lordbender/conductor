@@ -7,7 +7,7 @@ import {
   retryWorfklow,
   pauseWorfklow,
   resumeWorfklow
-} from '../../../actions/WorkflowActions';
+} from 'stores/actions';
 
 class WorkflowAction extends React.Component {
   terminate = () => {

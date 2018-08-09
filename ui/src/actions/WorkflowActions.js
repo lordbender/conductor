@@ -66,125 +66,125 @@ import axios from 'axios';
 //   };
 // };
 
-export const terminateWorkflow = workflowId => {
-  return dispatch => {
-    dispatch({
-      type: 'REQUESTED_TERMINATE_WORKFLOW',
-      workflowId
-    });
+// export const terminateWorkflow = workflowId => {
+//   return dispatch => {
+//     dispatch({
+//       type: 'REQUESTED_TERMINATE_WORKFLOW',
+//       workflowId
+//     });
 
-    return axios
-      .delete(`/api/wfe/terminate/${workflowId}`)
-      .then(() => {
-        dispatch({
-          type: 'RECEIVED_TERMINATE_WORKFLOW',
-          workflowId
-        });
-      })
-      .catch(e => {
-        dispatch({
-          type: 'REQUEST_ERROR',
-          e
-        });
-      });
-  };
-};
+//     return axios
+//       .delete(`/api/wfe/terminate/${workflowId}`)
+//       .then(() => {
+//         dispatch({
+//           type: 'RECEIVED_TERMINATE_WORKFLOW',
+//           workflowId
+//         });
+//       })
+//       .catch(e => {
+//         dispatch({
+//           type: 'REQUEST_ERROR',
+//           e
+//         });
+//       });
+//   };
+// };
 
-export const restartWorfklow = workflowId => {
-  return dispatch => {
-    dispatch({
-      type: 'REQUESTED_RESTART_WORKFLOW',
-      workflowId
-    });
+// export const restartWorfklow = workflowId => {
+//   return dispatch => {
+//     dispatch({
+//       type: 'REQUESTED_RESTART_WORKFLOW',
+//       workflowId
+//     });
 
-    return axios
-      .post(`/api/wfe/restart/${workflowId}`)
-      .then(() => {
-        dispatch({
-          type: 'RECEIVED_RESTART_WORKFLOW',
-          workflowId
-        });
-      })
-      .catch(e => {
-        dispatch({
-          type: 'REQUEST_ERROR',
-          e
-        });
-      });
-  };
-};
+//     return axios
+//       .post(`/api/wfe/restart/${workflowId}`)
+//       .then(() => {
+//         dispatch({
+//           type: 'RECEIVED_RESTART_WORKFLOW',
+//           workflowId
+//         });
+//       })
+//       .catch(e => {
+//         dispatch({
+//           type: 'REQUEST_ERROR',
+//           e
+//         });
+//       });
+//   };
+// };
 
-export const retryWorfklow = workflowId => {
-  return dispatch => {
-    dispatch({
-      type: 'REQUESTED_RETRY_WORKFLOW',
-      workflowId
-    });
+// export const retryWorfklow = workflowId => {
+//   return dispatch => {
+//     dispatch({
+//       type: 'REQUESTED_RETRY_WORKFLOW',
+//       workflowId
+//     });
 
-    return axios
-      .post(`/api/wfe/retry/${workflowId}`)
-      .then(() => {
-        dispatch({
-          type: 'RECEIVED_RETRY_WORKFLOW',
-          workflowId
-        });
-      })
-      .catch(e => {
-        dispatch({
-          type: 'REQUEST_ERROR',
-          e
-        });
-      });
-  };
-};
+//     return axios
+//       .post(`/api/wfe/retry/${workflowId}`)
+//       .then(() => {
+//         dispatch({
+//           type: 'RECEIVED_RETRY_WORKFLOW',
+//           workflowId
+//         });
+//       })
+//       .catch(e => {
+//         dispatch({
+//           type: 'REQUEST_ERROR',
+//           e
+//         });
+//       });
+//   };
+// };
 
-export const pauseWorfklow = workflowId => {
-  return dispatch => {
-    dispatch({
-      type: 'REQUESTED_PAUSE_WORKFLOW',
-      workflowId
-    });
+// export const pauseWorfklow = workflowId => {
+//   return dispatch => {
+//     dispatch({
+//       type: 'REQUESTED_PAUSE_WORKFLOW',
+//       workflowId
+//     });
 
-    return axios
-      .post(`/api/wfe/pause/${workflowId}`)
-      .then(() => {
-        dispatch({
-          type: 'RECEIVED_PAUSE_WORKFLOW',
-          workflowId
-        });
-      })
-      .catch(e => {
-        dispatch({
-          type: 'REQUEST_ERROR',
-          e
-        });
-      });
-  };
-};
+//     return axios
+//       .post(`/api/wfe/pause/${workflowId}`)
+//       .then(() => {
+//         dispatch({
+//           type: 'RECEIVED_PAUSE_WORKFLOW',
+//           workflowId
+//         });
+//       })
+//       .catch(e => {
+//         dispatch({
+//           type: 'REQUEST_ERROR',
+//           e
+//         });
+//       });
+//   };
+// };
 
-export const resumeWorfklow = workflowId => {
-  return dispatch => {
-    dispatch({
-      type: 'REQUESTED_RESUME_WORKFLOW',
-      workflowId
-    });
+// export const resumeWorfklow = workflowId => {
+//   return dispatch => {
+//     dispatch({
+//       type: 'REQUESTED_RESUME_WORKFLOW',
+//       workflowId
+//     });
 
-    return axios
-      .post(`/api/wfe/resume/${workflowId}`)
-      .then(() => {
-        dispatch({
-          type: 'RECEIVED_RESUME_WORKFLOW',
-          workflowId
-        });
-      })
-      .catch(e => {
-        dispatch({
-          type: 'REQUEST_ERROR',
-          e
-        });
-      });
-  };
-};
+//     return axios
+//       .post(`/api/wfe/resume/${workflowId}`)
+//       .then(() => {
+//         dispatch({
+//           type: 'RECEIVED_RESUME_WORKFLOW',
+//           workflowId
+//         });
+//       })
+//       .catch(e => {
+//         dispatch({
+//           type: 'REQUEST_ERROR',
+//           e
+//         });
+//       });
+//   };
+// };
 
 // metadata
 // export const getWorkflowDefs = () => {
