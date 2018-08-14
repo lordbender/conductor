@@ -1,50 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Drawer from '@material-ui/core/Drawer';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import List from '@material-ui/core/List';
-import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-import Hidden from '@material-ui/core/Hidden';
-import Divider from '@material-ui/core/Divider';
+import { Typography, Drawer, AppBar, Toolbar, IconButton, Hidden, Divider } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListSubheader from '@material-ui/core/ListSubheader';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
+import Menu from './Menu';
 
-const Menu = () => (
-  <List component="nav" subheader={<ListSubheader component="div">Nested List Items</ListSubheader>}>
-    <ListItem button>
-      <ListItemIcon>
-        <InboxIcon />
-      </ListItemIcon>
-      <ListItemText inset primary="Sent mail" />
-    </ListItem>
-    <ListItem button>
-      <ListItemIcon>
-        <DraftsIcon />
-      </ListItemIcon>
-      <ListItemText inset primary="Drafts" />
-    </ListItem>
-    <ListItem button onClick={this.handleClick}>
-      <ListItemIcon>
-        <InboxIcon />
-      </ListItemIcon>
-      <ListItemText inset primary="Inbox" />
-    </ListItem>
-  </List>
-);
 const drawerWidth = 240;
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
-    height: 430,
     zIndex: 1,
     overflow: 'hidden',
     position: 'relative',
@@ -87,15 +52,13 @@ class ResponsiveDrawer extends React.Component {
   };
 
   render() {
-    const { classes, theme, children } = this.props;
+    const { classes, theme, children, history } = this.props;
 
     const drawer = (
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        <Menu />
-        <Divider />
-        <Menu />
+        <Menu history={history} />
       </div>
     );
 

@@ -4,42 +4,6 @@
   --netflix-red: #e50914;
 }
 
-.grid-container {
-  display: grid;
-  grid-gap: 1px;
-  background-color: var(--main-bg-color);
-  padding: 5px;
-}
-
-.grid-item {
-  background-color: var(--item-bg-color);
-  text-align: center;
-  padding: 20px;
-  font-size: 30px;
-}
-
-.header {
-  grid-column: 1 / span 4;
-  grid-row: 1;
-  height: 10vh;
-}
-
-.side-nav {
-  grid-column: 1 / span 1;
-  grid-row: 2;
-}
-
-.body {
-  grid-column: 2 / span 3;
-  grid-row: 2;
-}
-
-.footer {
-  grid-column: 1 / span 4;
-  grid-row: 3;
-  height: 10vh;
-}
-
 .props-header {
   padding-top: 5px;
   margin-left: -10px;
