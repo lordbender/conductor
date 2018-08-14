@@ -1,7 +1,7 @@
 import React from 'react';
 import uuid from 'uuid';
 import { withRouter } from 'react-router-dom';
-import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 
 import conductorImg from 'images/conductor.png';
 
@@ -125,8 +125,7 @@ const MenuSection = props => {
     <ListItem key={`key-${uuid.v4()}`}>
       <ListItemText primary={header.label} />
     </ListItem>,
-    menu,
-    <Divider key={`key-${uuid.v4()}`} />
+    menu
   ];
 };
 
@@ -142,7 +141,6 @@ const Menu = props => (
         <img src={conductorImg} alt="Netflix" style={{ height: 50, cursor: 'pointer' }} />
       </ListItemIcon>
     </ListItem>
-    <Divider key={`key-${uuid.v4()}`} />
     <MenuSection typeHelper={menuItemTypes.workflow} navigate={href => handleClick(props, href)} />
     <MenuSection
       typeHelper={menuItemTypes.metadata}

@@ -38,7 +38,8 @@ const styles = theme => ({
   content: {
     flexGrow: 1,
     backgroundColor: theme.palette.background.default,
-    padding: theme.spacing.unit * 3
+    padding: theme.spacing.unit * 3,
+    marginTop: 50
   }
 });
 
@@ -57,7 +58,6 @@ class ResponsiveDrawer extends React.Component {
     const drawer = (
       <div>
         <div className={classes.toolbar} />
-        <Divider />
         <Menu history={history} handleDrawerToggle={this.handleDrawerToggle} />
       </div>
     );
