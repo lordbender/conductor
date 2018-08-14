@@ -1,7 +1,9 @@
 import React from 'react';
 import uuid from 'uuid';
 import { withRouter } from 'react-router-dom';
-import { List, ListItem, ListItemIcon, ListItemText, Divider, Paper, Typography } from '@material-ui/core';
+import { List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+
+import conductorImg from 'images/conductor.png';
 
 const menuItemTypes = {
   workflow: 0,
@@ -120,9 +122,9 @@ const MenuSection = props => {
   ));
 
   return [
-    <Typography key={`key-${uuid.v4()}`} variant="headline" component="h3">
-      {header.label}
-    </Typography>,
+    <ListItem key={`key-${uuid.v4()}`}>
+      <ListItemText primary={header.label} />
+    </ListItem>,
     menu,
     <Divider key={`key-${uuid.v4()}`} />
   ];
@@ -130,6 +132,12 @@ const MenuSection = props => {
 
 const Menu = props => (
   <List component="nav">
+    <ListItem onClick={() => props.history.push('/')}>
+      <ListItemIcon>
+        <img src={conductorImg} alt="Netflix" style={{ height: 50, cursor: 'pointer' }} />
+      </ListItemIcon>
+    </ListItem>
+    <Divider key={`key-${uuid.v4()}`} />
     <MenuSection
       typeHelper={menuItemTypes.workflow}
       navigate={href => {
