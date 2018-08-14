@@ -1,53 +1,99 @@
+:root {
+  --main-bg-color: #2196f3;
+  --item-bg-color: rgba(255, 255, 255, 0.8);
+  --props-header-bg-color:  rgba(217, 237, 247, .5);
+}
+
+.grid-container {
+  display: grid;
+  grid-gap: 10px;
+  background-color: var(--main-bg-color);
+  padding: 10px;
+}
+
+.grid-item {
+  background-color: var(--item-bg-color);
+  text-align: center;
+  padding: 20px;
+  font-size: 30px;
+}
+
+.header {
+  grid-column: 1 / 1;
+  grid-row: 1;
+  height: 10vh;
+}
+
+.side-nav {
+  grid-column: 1 / 2;
+  grid-row: 2;
+  height: 80vh;
+  width: 25vw;
+}
+
+.body {
+  grid-column: 2 / 2;
+  grid-row: 2;
+  height: 80vh;
+  width: 75vw;
+}
+
+.footer {
+  grid-column: 1 / span 2;
+  grid-row: 3;
+  height: 10vh;
+}
+
 .props-header {
-    padding-top: 5px;
-    margin-left: -10px;
-    padding-bottom: 20px;
-    margin-top: -5px;
-    display: block;
-    min-width: 100%;
-    background-color: rgba(217,237,247,.5);
-  }
+  padding-top: 5px;
+  margin-left: -10px;
+  padding-bottom: 20px;
+  margin-top: -5px;
+  display: block;
+  min-width: 100%;
+  background-color: var(--props-header-bg-color);
+}
 
-  .close-btn {
-    margin-left: 10px;
-    margin-right: 10px;
-    margin-top: 10px;
-    border: solid 10px #ffffff;
-    border-radius: 300px;
-    box-shadow: 1px 1px 1px 1px #cccccc;
-    background-color: #ffffff;
-  }
+.close-btn {
+  margin-left: 10px;
+  margin-right: 10px;
+  margin-top: 10px;
+  border: solid 10px #ffffff;
+  border-radius: 300px;
+  box-shadow: 1px 1px 1px 1px #cccccc;
+  background-color: #ffffff;
+}
 
-  .node rect {
-    stroke: #cccccc;
-    fill: #fff;
-    stroke-width: 0.6px;
-  }
-  
-  .node polygon {
-    stroke: #555;
-    fill: #fff;
-    stroke-width: 0.6px;
-  }
+.node rect {
+  stroke: #cccccc;
+  fill: #fff;
+  stroke-width: 0.6px;
+}
 
-  .node circle {
-    stroke: #555;
-    fill: #fff;
-    stroke-width: 0.6px;
-  }
+.node polygon {
+  stroke: #555;
+  fill: #fff;
+  stroke-width: 0.6px;
+}
 
-  .arrowhead {
-    stroke: blue;
-    fill: blue;
-    stroke-width: 1.5px;
-  }
+.node circle {
+  stroke: #555;
+  fill: #fff;
+  stroke-width: 0.6px;
+}
 
-  .edgePath path {
-    stroke: #333;
-    fill: #333;
-    stroke-width: 1.5px;
-  }
+.arrowhead {
+  stroke: blue;
+  fill: blue;
+  stroke-width: 1.5px;
+}
 
-  .edgeLabel {
-    fill: blue;
-  }
+.edgePath path {
+  stroke: #333;
+  fill: #333;
+  stroke-width: 1.5px;
+}
+
+.edgeLabel {
+  fill: blue;
+}

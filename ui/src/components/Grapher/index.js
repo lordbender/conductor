@@ -55,7 +55,7 @@ class Grapher extends Component {
         h = bbox.height,
         points = [{ x: 0, y: 0 }, { x: w, y: 0 }, { x: w, y: -h }, { x: w / 2, y: (-h * 3) / 2 }, { x: 0, y: -h }];
       const shapeSvg = parent.insert('polygon', ':first-child').attr('points', starPoints(w, h));
-      node.intersect = function(point) {
+      node.intersect = point => {
         return dagreD3.intersect.polygon(node, points, point);
       };
 
@@ -125,15 +125,14 @@ class Grapher extends Component {
     svg.attr('width', `${w}px`).attr('height', `${h}px`);
 
     const innerGraph = this.state.innerGraph || [];
-    const p = this;
 
     const showSubGraphDetails = () => {
-      const id = p.state.subGraphId;
+      const id = this.state.subGraphId;
       window.open(`#/workflow/id/${id}`, '_new');
     };
 
     const hidesub = () => {
-      p.setState({ showSubGraph: false });
+      this.setState({ showSubGraph: false });
     };
 
     inner.selectAll('g.node').on('click', v => {
@@ -144,17 +143,18 @@ class Grapher extends Component {
         const vx = innerGraph[v].vertices;
         const subg = { n, vx, layout };
 
-        p.setState({
+        console.log('data A =>', data);
+        this.setState({
           selectedTask: data.task,
           showSubGraph: true,
           showSideBar: true,
           subGraph: subg,
           subGraphId: innerGraph[v].id
         });
-        p.setState({ showSubGraph: true });
       } else if (vertices[v].tooltip != null) {
         const { data } = vertices[v];
-        p.setState({ selectedTask: data.task, showSideBar: true, subGraph: null, showSubGraph: false });
+        console.log('data B =>', data);
+        this.setState({ selectedTask: data.task, showSideBar: true, subGraph: null, showSubGraph: false });
       }
     });
 

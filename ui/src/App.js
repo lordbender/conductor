@@ -4,32 +4,24 @@ import styled from 'styled-components';
 import HomeRoutes from 'views/Home';
 import MetadataRoutes from 'views/Metadata';
 import WorkflowRoutes from 'views/Workflow';
-// import Footer from './components/Footer';
 import LeftMenu from 'components/LeftMenu';
-
-const Container = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const Column = styled.div`
-  width: ${props => props.width || '100%'};
-  flex-direction: row;
-  padding: ${props => props.padding || 0}px;
-`;
+import Footer from 'components/Footer';
 
 const App = () => (
-  <Container>
-    <Column width="20%" padding={5}>
+  <div className="grid-container">
+    <div className="grid-item header">Header</div>
+    <div className="grid-item side-nav">
       <LeftMenu version="1.0.0" />
-    </Column>
-    <Column width="80%" padding={15}>
+    </div>
+    <div className="grid-item body">
       <HomeRoutes />
       <MetadataRoutes />
       <WorkflowRoutes />
-    </Column>
-    {/* <Footer /> */}
-  </Container>
+    </div>
+    <div className="grid-item footer">
+      <Footer />
+    </div>
+  </div>
 );
 
 export default App;
