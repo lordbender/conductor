@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MenuIcon from '@material-ui/icons/Menu';
 import { withStyles } from '@material-ui/core/styles';
 import { Typography, Drawer, AppBar, Toolbar, IconButton, Hidden, Divider } from '@material-ui/core';
-import MenuIcon from '@material-ui/icons/Menu';
 import Menu from './Menu';
 
 const drawerWidth = 240;
@@ -28,7 +28,7 @@ const styles = theme => ({
       display: 'none'
     }
   },
-  toolbar: theme.mixins.toolbar,
+
   drawerPaper: {
     width: drawerWidth,
     [theme.breakpoints.up('md')]: {
@@ -58,7 +58,7 @@ class ResponsiveDrawer extends React.Component {
       <div>
         <div className={classes.toolbar} />
         <Divider />
-        <Menu history={history} />
+        <Menu history={history} handleDrawerToggle={this.handleDrawerToggle} />
       </div>
     );
 
@@ -75,7 +75,7 @@ class ResponsiveDrawer extends React.Component {
               <MenuIcon />
             </IconButton>
             <Typography variant="title" color="inherit" noWrap>
-              Responsive drawer
+              Netflix Conductor
             </Typography>
           </Toolbar>
         </AppBar>
@@ -107,7 +107,7 @@ class ResponsiveDrawer extends React.Component {
           </Drawer>
         </Hidden>
         <main className={classes.content}>
-          <div className={classes.toolbar} />
+          <div />
           <Typography noWrap>{children}</Typography>
         </main>
       </div>

@@ -130,38 +130,29 @@ const MenuSection = props => {
   ];
 };
 
+const handleClick = (props, href) => {
+  props.history.push(href);
+  props.handleDrawerToggle();
+};
+
 const Menu = props => (
   <List component="nav">
-    <ListItem onClick={() => props.history.push('/')}>
+    <ListItem onClick={() => handleClick(props, '/')}>
       <ListItemIcon>
         <img src={conductorImg} alt="Netflix" style={{ height: 50, cursor: 'pointer' }} />
       </ListItemIcon>
     </ListItem>
     <Divider key={`key-${uuid.v4()}`} />
-    <MenuSection
-      typeHelper={menuItemTypes.workflow}
-      navigate={href => {
-        props.history.push(href);
-      }}
-    />
+    <MenuSection typeHelper={menuItemTypes.workflow} navigate={href => handleClick(props, href)} />
     <MenuSection
       typeHelper={menuItemTypes.metadata}
       navigate={href => {
         props.history.push(href);
+        props.handleDrawerToggle();
       }}
     />
-    <MenuSection
-      typeHelper={menuItemTypes.events}
-      navigate={href => {
-        props.history.push(href);
-      }}
-    />
-    <MenuSection
-      typeHelper={menuItemTypes.queues}
-      navigate={href => {
-        props.history.push(href);
-      }}
-    />
+    <MenuSection typeHelper={menuItemTypes.events} navigate={href => handleClick(props, href)} />
+    <MenuSection typeHelper={menuItemTypes.queues} navigate={href => handleClick(props, href)} />
   </List>
 );
 
