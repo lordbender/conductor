@@ -1,14 +1,14 @@
 :root {
-  --main-bg-color: #2196f3;
+  --main-bg-color: gainsboro;
   --item-bg-color: rgba(255, 255, 255, 0.8);
-  --props-header-bg-color:  rgba(217, 237, 247, .5);
+  --netflix-red: #e50914;
 }
 
 .grid-container {
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 1px;
   background-color: var(--main-bg-color);
-  padding: 10px;
+  padding: 5px;
 }
 
 .grid-item {
@@ -19,27 +19,23 @@
 }
 
 .header {
-  grid-column: 1 / 1;
+  grid-column: 1 / span 4;
   grid-row: 1;
   height: 10vh;
 }
 
 .side-nav {
-  grid-column: 1 / 2;
+  grid-column: 1 / span 1;
   grid-row: 2;
-  height: 80vh;
-  width: 25vw;
 }
 
 .body {
-  grid-column: 2 / 2;
+  grid-column: 2 / span 3;
   grid-row: 2;
-  height: 80vh;
-  width: 75vw;
 }
 
 .footer {
-  grid-column: 1 / span 2;
+  grid-column: 1 / span 4;
   grid-row: 3;
   height: 10vh;
 }

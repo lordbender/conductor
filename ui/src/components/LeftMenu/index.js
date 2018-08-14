@@ -9,9 +9,8 @@ import workflowMenuItems from './menu';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  background-color: #2980b9;
+  text-align: left;
   padding: 10px;
-  color: #FFF;
   min-height: 800px;
 `;
 
