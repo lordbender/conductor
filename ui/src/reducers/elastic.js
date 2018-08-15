@@ -4,7 +4,7 @@ import axios from 'axios';
 const initialState = {
   loading: false,
   query: '',
-  result: 'Placeholder'
+  result: { data: 'Placeholder' }
 };
 
 export default function elastic(state = initialState, { data = {}, type }) {

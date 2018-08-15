@@ -26,12 +26,12 @@ const Actions = styled.div`
 
 const QueryResult = styled.div`
   padding: 15px;
+  min-height: 450px;
+  min-width: 300px;
 `;
 
 const QueryTools = props => {
   const { query, result } = props;
-
-  console.log('query >', query);
   return (
     <Wrapper>
       <FormWrapper>

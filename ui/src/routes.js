@@ -7,7 +7,7 @@ import WorkflowMetaList from './components/workflow/WorkflowMetaList';
 import TasksMetaList from './components/workflow/tasks/TasksMetaList';
 import QueueList from './components/workflow/queues/QueueList';
 import WorkflowMetaDetails from './components/workflow/WorkflowMetaDetails';
-import QueryTools from './components/elastic/QueryTools';
+import QueryTools from './views/Elastic/QueryTools';
 import Intro from './components/common/Home';
 import Help from './components/common/Help';
 
@@ -25,6 +25,7 @@ const routeConfig = [
       { path: 'workflow/id/:workflowId', component: WorkflowDetails },
       { path: 'elastic', component: QueryTools },
       { path: 'elastic/query/tooling', component: QueryTools },
+      { path: 'events', component: Events },
       { path: 'events/executions', component: EventExecs },
       { path: 'help', component: Help }
     ]
