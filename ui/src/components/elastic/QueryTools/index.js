@@ -51,7 +51,9 @@ const QueryTools = props => {
           </Actions>
         </Form>
       </FormWrapper>
-      <QueryResult>{result}</QueryResult>
+      <QueryResult>
+        <pre>{JSON.stringify(result || {}, null, 3)}</pre>
+      </QueryResult>
     </Wrapper>
   );
 };

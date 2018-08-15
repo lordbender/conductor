@@ -25,8 +25,8 @@ export default function elastic(state = initialState, { data = {}, type }) {
   }
 }
 
-export const executeElasticQuery = () => (dispatch, state) => {
-  const { elastic: { query = '{}' } = {} } = state;
+export const executeElasticQuery = () => (dispatch, getState) => {
+  const { elastic: { query = '{}' } = {} } = getState();
 
   return axios
     .post('/api/elastic', {
