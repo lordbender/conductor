@@ -77,6 +77,22 @@ const menuPaths = {
       label: 'Poll Data',
       href: '/workflow/queue/data',
       icon: 'fa-exchange'
+    },
+    {
+      header: true,
+      label: 'Elastic Tooling',
+      href: 'elastic/query/tooling',
+      icon: 'fa-certificate'
+    },
+    {
+      label: 'Index',
+      href: 'elastic',
+      icon: 'fa-list-ul'
+    },
+    {
+      label: 'Query',
+      href: 'elastic/query/tooling',
+      icon: 'fa-search'
     }
   ]
 };
@@ -120,7 +136,9 @@ class LeftMenu extends React.Component {
         menuItems.push(
           <div className="" key={`key-${(keyVal += 1)}`}>
             <div className="menuHeader">
-              <i className="fa fa-angle-down" />&nbsp;{cv.label}
+              <i className="fa fa-angle-down" />
+              &nbsp;
+              {cv.label}
             </div>
           </div>
         );
