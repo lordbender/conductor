@@ -27,8 +27,9 @@ const Actions = styled.div`
 
 const QueryResult = styled.div`
   padding: 15px;
-  min-height: 450px;
-  min-width: 300px;
+  min-height: 300px;
+  min-width: 400px;
+  margin-top: 20px;
 `;
 
 class QueryTools extends React.Component {
@@ -41,8 +42,7 @@ class QueryTools extends React.Component {
     await this.props.executeElasticQuery();
   }
 
-  validateJson = () => {
-    const { query } = this.props;
+  validateJson = query => {
     try {
       JSON.parse(query);
       this.setState({
@@ -66,7 +66,7 @@ class QueryTools extends React.Component {
             <a href="https://github.com/elastic/elasticsearch-js" target="_blank" rel="noopener noreferrer">
               https://github.com/elastic/elasticsearch-js
             </a>
-            <pre>
+            <pre style={{ width: '95%', marginLeft: 15 }}>
               {`
 {
   index: 'twitter',
@@ -83,14 +83,17 @@ class QueryTools extends React.Component {
             </pre>
           </div>
           <Form>
+            <span style={{ display: validJson ? 'none' : 'inline', color: 'red' }}>Invalid Json</span>
+            <br />
             <textarea
+              style={{ color: validJson ? 'inherit' : 'red', width: '100%' }}
               value={query}
               onChange={({ target: { value = '{}' } }) => {
                 this.props.setQuery(value);
-                this.validateJson();
+                this.validateJson(value);
               }}
-              cols="120"
-              rows="30"
+              cols="100"
+              rows="15"
             />
             <Actions>
               <Button disabled={!validJson} bsStyle="danger" onClick={() => this.props.executeElasticQuery()}>
@@ -100,7 +103,7 @@ class QueryTools extends React.Component {
           </Form>
         </FormWrapper>
         <QueryResult>
-          <pre>{JSON.stringify(result || {}, null, 3)}</pre>
+          <pre style={{ width: '100%' }}>{JSON.stringify(result || {}, null, 3)}</pre>
         </QueryResult>
       </Wrapper>
     );

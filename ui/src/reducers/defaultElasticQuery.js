@@ -1,4 +1,5 @@
 export default `{
     "index": "conductor",
-    "type": "workflow"
+    "type": "workflow",
+    "q": "kitchensink"
   }`;
