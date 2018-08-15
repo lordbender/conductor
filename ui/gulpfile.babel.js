@@ -156,10 +156,12 @@ gulp.task('watch', cb => {
 
 gulp.task('set-env', () => {
   // Only use localhost if WF_SERVER is not set
-  const wfServer = process.env.WF_SERVER || 'http://localhost:8080/api/';
+  const { WF_SERVER = 'http://localhost:8080/api/', ELASTIC_ENDPOINT = 'http://localhost:9200/' } = process.env;
+
   env({
     vars: {
-      WF_SERVER: wfServer
+      WF_SERVER,
+      ELASTIC_ENDPOINT
     }
   });
 });

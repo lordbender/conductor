@@ -1,17 +1,16 @@
-import EventsService from '../services/events.service';
+import ElasticService from '../services/elastic.service';
 
 class SystemRoutes {
   constructor() {
-    this.eventsService = new EventsService();
+    this.elasticService = new ElasticService();
   }
 
   init(app) {
-    app.post('/api/elastic/', async (req, res, next) => {
+    app.post('/api/elastic/', async ({ body, token }, res, next) => {
       try {
-        const { body } = req;
-
-        console.log('body => ', body);
-        res.status(200).send(body);
+        const result = await this.elasticService.executeQuery(body, token);
+        console.log('body => ', result);
+        res.status(200).send(result);
       } catch (err) {
         next(err);
       }

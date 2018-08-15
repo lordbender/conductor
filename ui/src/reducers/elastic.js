@@ -26,18 +26,20 @@ export default function elastic(state = initialState, { data = {}, type }) {
 }
 
 export const executeElasticQuery = () => (dispatch, getState) => {
-  const { elastic: { query = '{}' } = {} } = getState();
+  const { elastic: { query = {} } = {} } = getState();
 
-  return axios
-    .post('/api/elastic', {
-      query
-    })
-    .then(({ data }) => {
+  const parsed = JSON.parse(query);
+
+  try {
+    return axios.post('/api/elastic', parsed).then(({ data }) => {
       dispatch({
         type: 'SET_ELASTIC_QUERY_RESULT',
         data
       });
     });
+  } catch (e) {
+    console.error(e);
+  }
 };
 
 export const setQuery = query => dispatch => {

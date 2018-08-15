@@ -1,9 +1,15 @@
 import axios from 'axios';
+import elasticsearch from 'elasticsearch';
 
 class BaseService {
   constructor() {
-    const { WF_SERVER } = process.env;
+    const { WF_SERVER, ELASTIC_ENDPOINT } = process.env;
     this.hostName = WF_SERVER;
+
+    this.elasticClient = new elasticsearch.Client({
+      host: ELASTIC_ENDPOINT,
+      log: 'error'
+    });
   }
 
   handleError = e => {
@@ -17,6 +23,16 @@ class BaseService {
     token
       ? { headers: { Accept: 'application/json', Authorization: token } }
       : { headers: { Accept: 'application/json' } };
+
+  async elastic(query) {
+    try {
+      console.log('query =>', query);
+      const response = await this.elasticClient.search(query);
+      return response;
+    } catch (e) {
+      return this.handleError(e);
+    }
+  }
 
   async get(url, token) {
     try {

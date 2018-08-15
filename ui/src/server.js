@@ -3,6 +3,8 @@ import express from 'express';
 import Bunyan from 'bunyan';
 import MiddlewareIndex from './api/middleware';
 
+require('dotenv').config();
+
 const log = Bunyan.createLogger({ src: true, name: 'Conductor UI' });
 
 const WorkflowRoutes = require('./api/routes/workflow');

@@ -29,6 +29,8 @@
     "create-react-class": "^15.5.3",
     "d3": "^3.5.16",
     "dagre-d3": "^0.4.17",
+    "dotenv": "^6.0.0",
+    "elasticsearch": "^15.1.1",
     "express": "^4.16.3",
     "fbjs": "^0.7.2",
     "graceful-fs": "^4.0.0",
