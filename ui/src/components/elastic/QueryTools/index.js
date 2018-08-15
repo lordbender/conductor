@@ -28,8 +28,8 @@ const QueryResult = styled.div`
   padding: 15px;
 `;
 
-const QueryTools = () => {
-  const { query, result } = this.props;
+const QueryTools = props => {
+  const { query, result } = props;
 
   return (
     <Wrapper>
@@ -38,13 +38,13 @@ const QueryTools = () => {
           <textarea
             value={query}
             onChange={({ target: { value = '{}' } }) => {
-              this.props.setQuery(value);
+              props.setQuery(value);
             }}
             cols="120"
             rows="30"
           />
           <Actions>
-            <Button bsStyle="danger" onClick={async () => this.props.executeElasticQuery()}>
+            <Button bsStyle="danger" onClick={() => props.executeElasticQuery()}>
               Execute Query
             </Button>
           </Actions>
@@ -60,6 +60,8 @@ export default connect(
     query: state.elastic.query,
     result: state.elastic.result
   }),
-  executeElasticQuery,
-  setQuery
+  {
+    executeElasticQuery,
+    setQuery
+  }
 )(QueryTools);
