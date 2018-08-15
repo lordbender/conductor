@@ -1,6 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
+import { executeElasticQuery, setQuery } from '../../../reducers/elastic';
 
 const Wrapper = styled.div`
   padding: 15px;
@@ -26,45 +28,38 @@ const QueryResult = styled.div`
   padding: 15px;
 `;
 
-class QueryTools extends React.Component {
-  state = {
-    query: '',
-    result: 'Result Placeholder...'
-  };
+const QueryTools = () => {
+  const { query, result } = this.props;
 
-  executeQuery = () => {
-    const { query, result } = this.state;
+  return (
+    <Wrapper>
+      <FormWrapper>
+        <Form>
+          <textarea
+            value={query}
+            onChange={({ target: { value = '{}' } }) => {
+              this.props.setQuery(value);
+            }}
+            cols="120"
+            rows="30"
+          />
+          <Actions>
+            <Button bsStyle="danger" onClick={async () => this.props.executeElasticQuery()}>
+              Execute Query
+            </Button>
+          </Actions>
+        </Form>
+      </FormWrapper>
+      <QueryResult>{result}</QueryResult>
+    </Wrapper>
+  );
+};
 
-    console.log('query => ', query);
-    this.setState({ result: query });
-  };
-
-  render() {
-    const { query, result } = this.state;
-
-    return (
-      <Wrapper>
-        <FormWrapper>
-          <Form>
-            <textarea
-              value={query}
-              onChange={({ target: { value: query = '' } }) => {
-                this.setState({ query });
-              }}
-              cols="120"
-              rows="30"
-            />
-            <Actions>
-              <Button bsStyle="danger" onClick={this.executeQuery}>
-                Execute
-              </Button>
-            </Actions>
-          </Form>
-        </FormWrapper>
-        <QueryResult>{result}</QueryResult>
-      </Wrapper>
-    );
-  }
-}
-
-export default QueryTools;
+export default connect(
+  state => ({
+    query: state.elastic.query,
+    result: state.elastic.result
+  }),
+  executeElasticQuery,
+  setQuery
+)(QueryTools);

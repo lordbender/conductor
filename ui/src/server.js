@@ -9,6 +9,7 @@ const WorkflowRoutes = require('./api/routes/workflow');
 const MetadataRoutes = require('./api/routes/metadata');
 const SystemRoutes = require('./api/routes/system');
 const EventsRoutes = require('./api/routes/events');
+const ElasticRoutes = require('./api/routes/elastic');
 const TaskRoutes = require('./api/routes/tasks');
 
 class Main {
@@ -35,6 +36,7 @@ class Main {
     new TaskRoutes().init(app);
     new SystemRoutes().init(app);
     new EventsRoutes().init(app);
+    new ElasticRoutes().init(app);
   };
 
   postMiddlewareConfig = (app, middlewareIndex) => {

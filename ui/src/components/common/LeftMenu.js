@@ -85,11 +85,6 @@ const menuPaths = {
       icon: 'fa-certificate'
     },
     {
-      label: 'Index',
-      href: 'elastic',
-      icon: 'fa-list-ul'
-    },
-    {
       label: 'Query',
       href: 'elastic/query/tooling',
       icon: 'fa-search'
