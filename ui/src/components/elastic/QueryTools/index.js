@@ -31,6 +31,7 @@ const QueryResult = styled.div`
 const QueryTools = props => {
   const { query, result } = props;
 
+  console.log('query >', query);
   return (
     <Wrapper>
       <FormWrapper>

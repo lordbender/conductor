@@ -7,18 +7,18 @@ const initialState = {
   result: 'Placeholder'
 };
 
-export default function elastic(state = initialState, action) {
+export default function elastic(state = initialState, { data = {}, type }) {
   // eslint-disable-next-line
-  switch (action.type) {
+  switch (type) {
     case 'SET_ELASTIC_QUERY':
       return {
         ...state,
-        query: { ...action.data }
+        query: data
       };
     case 'SET_ELASTIC_QUERY_RESULT':
       return {
         ...state,
-        result: { ...action.data }
+        result: { ...data }
       };
     default:
       return state;
@@ -26,8 +26,6 @@ export default function elastic(state = initialState, action) {
 }
 
 export const executeElasticQuery = () => (dispatch, state) => {
-  console.log('getState', state);
-  console.log('dispatch', dispatch);
   const { elastic: { query = '{}' } = {} } = state;
 
   return axios
@@ -45,6 +43,6 @@ export const executeElasticQuery = () => (dispatch, state) => {
 export const setQuery = query => dispatch => {
   dispatch({
     type: 'SET_ELASTIC_QUERY',
-    query
+    data: query
   });
 };
