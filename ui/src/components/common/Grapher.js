@@ -108,7 +108,7 @@ class Grapher extends Component {
     g.nodes().forEach(v => {
       let node = g.node(v);
       if (node == null) {
-        console.log(`NO node found ${v}`);
+        console.info(`NO node found ${v}`);
       }
       node.rx = node.ry = 5;
     });

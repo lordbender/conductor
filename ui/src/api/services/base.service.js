@@ -26,7 +26,6 @@ class BaseService {
 
   async elastic(query) {
     try {
-      console.log('query =>', query);
       const response = await this.elasticClient.search(query);
       return response;
     } catch (e) {

@@ -2,8 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import { Button } from 'react-bootstrap';
+import defaultQuery from './defaultElasticQuery';
 import { executeElasticQuery, setQuery } from '../../../reducers/elastic';
-import defaultQuery from '../../../reducers/defaultElasticQuery';
 
 const Wrapper = styled.div`
   padding: 15px;
@@ -17,7 +17,7 @@ const FormWrapper = styled.div`
   flex-direction: column;
 `;
 
-const Form = styled.div`
+const FormSection = styled.div`
   padding: 15px;
 `;
 
@@ -61,31 +61,35 @@ class QueryTools extends React.Component {
     return (
       <Wrapper>
         <FormWrapper>
-          <div>
-            Use Query Syntax Denoted Here:{' '}
+          <FormSection>
+            <label>Use Query Syntax Denoted Here:</label>
+            &nbsp;
             <a href="https://github.com/elastic/elasticsearch-js" target="_blank" rel="noopener noreferrer">
               https://github.com/elastic/elasticsearch-js
             </a>
-            <pre style={{ width: '95%', marginLeft: 15 }}>
+            <pre>
               {`
 {
-  index: 'twitter',
-  type: 'tweets',
-  body: {
-    query: {
-      match: {
-        body: 'elasticsearch'
-      }
+  {
+    "index":"conductor",
+    "type":"workflow",
+    "body":{
+       "query or filter":{
+          "match":{
+             "workflowType":"kitchensink"
+          }
+       }
     }
-  }
-}
+ }
               `}
             </pre>
-          </div>
-          <Form>
+          </FormSection>
+          <FormSection>
             <span style={{ display: validJson ? 'none' : 'inline', color: 'red' }}>Invalid Json</span>
             <br />
+            <label>Elastic Query:</label>
             <textarea
+              id="elastic-query"
               style={{ color: validJson ? 'inherit' : 'red', width: '100%' }}
               value={query}
               onChange={({ target: { value = '{}' } }) => {
@@ -100,7 +104,7 @@ class QueryTools extends React.Component {
                 Execute Query
               </Button>
             </Actions>
-          </Form>
+          </FormSection>
         </FormWrapper>
         <QueryResult>
           <pre style={{ width: '100%' }}>{JSON.stringify(result || {}, null, 3)}</pre>

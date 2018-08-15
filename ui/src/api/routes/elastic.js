@@ -9,7 +9,6 @@ class SystemRoutes {
     app.post('/api/elastic/', async ({ body, token }, res, next) => {
       try {
         const result = await this.elasticService.executeQuery(body, token);
-        console.log('body => ', result);
         res.status(200).send(result);
       } catch (err) {
         next(err);
