@@ -1,6 +1,5 @@
 /* eslint-disable class-methods-use-this */
 require('dotenv').config();
-require('babel-polyfill');
 const express = require('express');
 const MiddlewareIndex = require('./middleware');
 

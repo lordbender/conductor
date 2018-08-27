@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { getWorkflowDefs } from '../../actions/WorkflowActions';

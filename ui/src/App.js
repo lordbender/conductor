@@ -1,26 +1,28 @@
 import React from 'react';
-import { Router, browserHistory } from 'react-router';
+import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
-import routeConfig from './routes';
-import workflowApp from './reducers';
+import RoutesIndex from 'views/RoutesIndex';
+import workflowApp from 'reducers';
 
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const store = createStore(workflowApp, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
-function updateLocation() {
-  store.dispatch({
-    type: 'LOCATION_UPDATED',
-    location: this.state.location.key
-  });
-}
+// function updateLocation() {
+//   store.dispatch({
+//     type: 'LOCATION_UPDATED',
+//     location: this.state.location.key
+//   });
+// }
 
 const App = () => (
   <Provider store={store}>
-    <Router history={browserHistory} routes={routeConfig} onUpdate={updateLocation} />
+    <Router>
+      <RoutesIndex />
+    </Router>
   </Provider>
 );
 

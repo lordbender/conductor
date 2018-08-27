@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
 import Typeahead from 'react-bootstrap-typeahead';
