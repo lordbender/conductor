@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 import Footer from '../common/Footer';
 import ErrorPage from '../common/Error';
 import LeftMenu from '../common/LeftMenu';
@@ -50,4 +51,4 @@ class Home extends React.Component {
   }
 }
 
-export default connect(state => state.global)(Home);
+export default withRouter(connect(state => state.global)(Home));
