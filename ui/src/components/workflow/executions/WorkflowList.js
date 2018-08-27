@@ -6,7 +6,7 @@ import uuid from 'uuid';
 import { connect } from 'react-redux';
 import Typeahead from 'react-bootstrap-typeahead';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
-import { Input, Button, Panel, Popover, OverlayTrigger, ButtonGroup, Grid, Row, Col } from 'react-bootstrap';
+import { FormControl, Button, Panel, Popover, OverlayTrigger, ButtonGroup, Grid, Row, Col } from 'react-bootstrap';
 import { searchWorkflows, getWorkflowDefs } from '../../../actions/WorkflowActions';
 
 function linkMaker(cell) {
@@ -257,7 +257,7 @@ class Workflow extends React.Component {
             <Grid fluid>
               <Row className="show-grid">
                 <Col md={4}>
-                  <Input
+                  <FormControl
                     type="input"
                     placeholder="Search"
                     groupClassName=""
@@ -305,7 +305,7 @@ class Workflow extends React.Component {
                   </label>
                 </Col>
                 <Col md={2}>
-                  <Input
+                  <FormControl
                     className="number-input"
                     type="text"
                     ref="h"

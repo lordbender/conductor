@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Typeahead from 'react-bootstrap-typeahead';
-import { Table, Grid, Row, Col, Input } from 'react-bootstrap';
+import { Table, Grid, Row, Col, FormControl } from 'react-bootstrap';
 import { getEventHandlers } from '../../actions/WorkflowActions';
 
 class EventExecs extends React.Component {
@@ -41,7 +41,7 @@ class EventExecs extends React.Component {
               />
             </Col>
             <Col md={4}>
-              <Input type="text" ref="q" placeholder="search..." />
+              <FormControl type="text" ref="q" placeholder="search..." />
             </Col>
           </Row>
         </Grid>

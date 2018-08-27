@@ -1,7 +1,7 @@
 import React from 'react';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
-import { Input, Popover, OverlayTrigger } from 'react-bootstrap';
+import { FormControl, Popover, OverlayTrigger } from 'react-bootstrap';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { getTaskDefs } from '../../../actions/WorkflowActions';
 
@@ -35,14 +35,14 @@ class TaskMetaList extends React.Component {
             <Popover id={`popover-id-${uuid.v4()}`} title={row.name} style={{ width: '500px' }}>
               <div className="left">
                 <form>
-                  <Input type="text" value={row.retryCount} addonBefore="Retry Count" addonAfter="Times" readOnly />
+                  <FormControl type="text" value={row.retryCount} addonBefore="Retry Count" addonAfter="Times" readOnly />
                   <br />
-                  <Input type="select" value={row.retryLogic} addonBefore="Retry Logic" readOnly>
+                  <FormControl type="select" value={row.retryLogic} addonBefore="Retry Logic" readOnly>
                     <option value="FIXED">FIXED</option>
                     <option value="EXPONENTIAL_BACKOFF">EXPONENTIAL_BACKOFF</option>
-                  </Input>
+                  </FormControl>
                   <br />
-                  <Input
+                  <FormControl
                     type="text"
                     defaultValue={row.retryDelaySeconds}
                     addonBefore="Retry Delay"
@@ -50,12 +50,12 @@ class TaskMetaList extends React.Component {
                     readOnly
                   />
                   <br />
-                  <Input type="select" defaultValue={row.timeoutPolicy} addonBefore="Time Out Action" readOnly>
+                  <FormControl type="select" defaultValue={row.timeoutPolicy} addonBefore="Time Out Action" readOnly>
                     <option value="RETRY_TASK">RETRY TASK</option>
                     <option value="TIME_OUT_WF">TIME_OUT_WF</option>
-                  </Input>
+                  </FormControl>
                   <br />
-                  <Input
+                  <FormControl
                     type="text"
                     defaultValue={row.timeoutSeconds}
                     addonBefore="Time Out"
@@ -63,7 +63,7 @@ class TaskMetaList extends React.Component {
                     readOnly
                   />
                   <br />
-                  <Input
+                  <FormControl
                     type="text"
                     defaultValue={row.responseTimeoutSeconds}
                     addonBefore="Response Time Out"
@@ -71,21 +71,21 @@ class TaskMetaList extends React.Component {
                     readOnly
                   />
                   <br />
-                  <Input
+                  <FormControl
                     type="text"
                     ref="concurrentExecLimit"
                     value={row.concurrentExecLimit}
                     addonBefore="Concurrent Exec Limit"
                   />
                   <br />
-                  <Input
+                  <FormControl
                     type="text"
                     ref="rateLimitPerFrequency"
                     value={row.rateLimitPerFrequency}
                     addonBefore="Rate Limit Amount"
                   />
                   <br />
-                  <Input
+                  <FormControl
                     type="text"
                     ref="rateLimitFrequencyInSeconds"
                     value={row.rateLimitFrequencyInSeconds}
@@ -93,7 +93,7 @@ class TaskMetaList extends React.Component {
                     addonAfter="Seconds"
                   />
                   <br />
-                  <Input type="textarea" label="Task Description" defaultValue={row.description} readOnly />
+                  <FormControl type="textarea" label="Task Description" defaultValue={row.description} readOnly />
                   <br />
                 </form>
               </div>
