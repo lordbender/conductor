@@ -1,21 +1,23 @@
 import React from 'react';
-import { Nav, Navbar, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
-import LeftMenu from '../common/LeftMenu';
-import packageJSON from '../../../package.json';
+import { withRouter } from 'react-router-dom';
+import { Nav, Navbar, NavItem, NavDropdown, MenuItem, Button } from 'react-bootstrap';
+import packageJson from '../../../package.json';
 
-const TopNav = () => (
-  <Navbar>
+const TopNav = props => (
+  <Navbar staticTop>
     <Navbar.Header>
       <Navbar.Brand>
-        <a href="#home">React-Bootstrap</a>
+        <Button bsStyle="link" onClick={() => props.history.push('/')}>
+          Conductor
+        </Button>
       </Navbar.Brand>
     </Navbar.Header>
     <Nav>
-      <NavItem eventKey={1} href="#">
-        Link
+      <NavItem eventKey={1} href="#" onClick={() => props.history.push('/workflow')}>
+        Workflows
       </NavItem>
-      <NavItem eventKey={2} href="#">
-        Link
+      <NavItem eventKey={2} href="#" onClick={() => props.history.push('/workflow/metadata')}>
+        Workflow Defs
       </NavItem>
       <NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
         <MenuItem eventKey={3.1}>Action</MenuItem>
@@ -28,4 +30,4 @@ const TopNav = () => (
   </Navbar>
 );
 
-export default TopNav;
+export default withRouter(TopNav);
