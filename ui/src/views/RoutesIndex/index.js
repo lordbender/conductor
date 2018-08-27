@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Home from 'components/Home';
 // import Workflow from './components/workflow/executions/WorkflowList';
 // import Event from './components/event/EventList';
 // import EventExecs from './components/event/EventExecs';
@@ -10,7 +9,7 @@ import WorkflowMetaList from 'components/workflow/WorkflowMetaList';
 // import TasksMetaList from './components/workflow/tasks/TasksMetaList';
 // import QueueList from './components/workflow/queues/QueueList';
 // import WorkflowMetaDetails from './components/workflow/WorkflowMetaDetails';
-// import Intro from './components/common/Home';
+import Intro from 'components/common/Home';
 // import Help from './components/common/Help';
 
 // const routeConfig = [
@@ -34,7 +33,7 @@ import WorkflowMetaList from 'components/workflow/WorkflowMetaList';
 
 const RoutesIndex = () => (
   <div>
-    <Route exact path="/" component={Home} />
+    <Route exact path="/" component={Intro} />
     <Route exact path="/workflow/metadata" component={WorkflowMetaList} />
   </div>
 );

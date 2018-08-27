@@ -5,7 +5,7 @@ import { createStore, applyMiddleware, compose } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import RoutesIndex from 'views/RoutesIndex';
 import workflowApp from 'reducers';
-
+import Home from 'components/Home';
 // eslint-disable-next-line no-underscore-dangle
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -21,7 +21,9 @@ const store = createStore(workflowApp, composeEnhancers(applyMiddleware(thunkMid
 const App = () => (
   <Provider store={store}>
     <Router>
-      <RoutesIndex />
+      <Home>
+        <RoutesIndex />
+      </Home>
     </Router>
   </Provider>
 );
