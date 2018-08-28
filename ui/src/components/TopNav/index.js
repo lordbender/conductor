@@ -11,27 +11,39 @@ const TopNav = props => (
           Conductor
         </Button>
       </Navbar.Brand>
+      <Navbar.Toggle />
     </Navbar.Header>
-    <Nav>
-      <NavItem eventKey={1} onClick={() => props.history.push('/events')}>
-        <i className="fa fa-circle-thin" />
-        &nbsp; Event Handlers
-      </NavItem>
-      <NavItem eventKey={2} onClick={() => props.history.push('/workflow/metadata')}>
-        <i className="fa fa-star" />
-        &nbsp; Workflow Defs
-      </NavItem>
-      <NavDropdown eventKey={3} title="Workflow" id="basic-nav-dropdown">
-        <MenuItem eventKey={3.1} onClick={() => props.history.push('/workflow')}>
+    <Navbar.Collapse>
+      <Nav>
+        <NavItem eventKey={1} onClick={() => props.history.push('/events')}>
           <i className="fa fa-circle-thin" />
-          &nbsp; All
-        </MenuItem>
-        <MenuItem eventKey={3.2}>Another action</MenuItem>
-        <MenuItem eventKey={3.3}>Something else here</MenuItem>
-        <MenuItem divider />
-        <MenuItem eventKey={3.4}>Separated link</MenuItem>
-      </NavDropdown>
-    </Nav>
+          &nbsp; Event Handlers
+        </NavItem>
+        <NavItem eventKey={2} onClick={() => props.history.push('/workflow/metadata')}>
+          <i className="fa fa-star-half-o" />
+          &nbsp; Workflow Defs
+        </NavItem>
+        <NavDropdown
+          eventKey={3}
+          title={
+            <span>
+              <i className="fa fa-star" />
+              &nbsp;Executions
+            </span>
+          }
+          id="basic-nav-dropdown"
+        >
+          <MenuItem eventKey={3.1} onClick={() => props.history.push('/workflow')}>
+            <i className="fa fa-circle-thin" />
+            &nbsp; All
+          </MenuItem>
+          <MenuItem eventKey={3.2}>Running</MenuItem>
+          <MenuItem eventKey={3.3}>Failed</MenuItem>
+          <MenuItem eventKey={3.4}>Timed Out</MenuItem>
+          <MenuItem eventKey={3.5}>Terminated</MenuItem>
+        </NavDropdown>
+      </Nav>
+    </Navbar.Collapse>
   </Navbar>
 );
 
