@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import Typeahead from 'react-bootstrap-typeahead';
 import { BootstrapTable, TableHeaderColumn } from 'react-bootstrap-table';
 import { FormControl, Button, Panel, Popover, OverlayTrigger, ButtonGroup, Grid, Row, Col } from 'react-bootstrap';
-import { searchWorkflows, getWorkflowDefs } from '../../../actions/WorkflowActions';
+import { listWorkflows } from 'stores/workflow';
 
 function linkMaker(cell) {
   return <Link to={`/workflow/id/${cell}`}>{cell}</Link>;
@@ -87,7 +87,6 @@ class WorkflowList extends React.Component {
       workflowTypes: workflowTypes === '' ? [] : workflowTypes.split(','),
       status: status !== '' ? status.split(',') : [],
       h,
-      workflows: [],
       update: true,
       fullstr: true,
       start: !isNaN(start, 10) ? parseInt(start, 10) : start
@@ -95,33 +94,7 @@ class WorkflowList extends React.Component {
   }
 
   async componentWillMount() {
-    await this.props.getWorkflowDefs();
-    this.doDispatch();
-  }
-
-  componentWillReceiveProps({ workflows = [], location: { query: { h, start, status = '', q } = {} } = {} }) {
-    const workflowDefs = workflows.map(workflowDef => workflowDef.name);
-
-    let search = q;
-    if (search == null || search === 'undefined' || search === '') {
-      search = '';
-    }
-
-    let update = true;
-    update = this.state.search !== search;
-    update = update || this.state.h !== h;
-    update = update || this.state.start !== start;
-
-    this.setState({
-      search,
-      h: isNaN(h, 10) ? '' : h,
-      update,
-      status: status !== '' ? status.split(',') : [],
-      workflows: workflowDefs,
-      start: isNaN(start, 10) ? 0 : start
-    });
-
-    this.refreshResults();
+    await this.props.listWorkflows();
   }
 
   searchBtnClick = () => {
@@ -135,28 +108,6 @@ class WorkflowList extends React.Component {
       this.urlUpdate();
       this.doDispatch();
     }
-  };
-
-  urlUpdate = () => {
-    // const { workflowTypes, status, start, h, search: q } = this.state;
-
-    // this.props.history.push(
-    //   null,
-    //   `/workflow?q=${q}&h=${h}&workflowTypes=${workflowTypes}&status=${status}&start=${start}`
-    // );
-  };
-
-  doDispatch = async () => {
-    const { search = '' } = this.state;
-    const query = [];
-
-    if (this.state.workflowTypes.length > 0) {
-      query.push(`workflowType IN (${this.state.workflowTypes.join(',')}) `);
-    }
-    if (this.state.status.length > 0) {
-      query.push(`status IN (${this.state.status.join(',')}) `);
-    }
-    await this.props.searchWorkflows(query.join(' AND '), search, this.state.h, this.state.fullstr, this.state.start);
   };
 
   workflowTypeChange = workflowTypes => {
@@ -231,8 +182,8 @@ class WorkflowList extends React.Component {
     if (found < 100) {
       max = start + found;
     }
-    const workflowNames = this.state.workflows ? this.state.workflows : [];
-    const statusList = ['RUNNING', 'COMPLETED', 'FAILED', 'TIMED_OUT', 'TERMINATED', 'PAUSED'];
+    // const workflowNames = this.state.workflows ? this.state.workflows : [];
+    // const statusList = ['RUNNING', 'COMPLETED', 'FAILED', 'TIMED_OUT', 'TERMINATED', 'PAUSED'];
 
     // secondary filter to match sure we only show workflows that match the the status
     const currentStatusArray = this.state.status;
@@ -379,9 +330,8 @@ class WorkflowList extends React.Component {
 
 export default connect(
   state => ({
-    workflows: state.workflow.workflows,
-    hits: state.workflow.data.hits,
-    totalHits: state.workflow.data.totalHits
+    hits: state.workflow.list,
+    totalHits: state.workflow.totalHits
   }),
-  { searchWorkflows, getWorkflowDefs }
+  { listWorkflows }
 )(withRouter(WorkflowList));

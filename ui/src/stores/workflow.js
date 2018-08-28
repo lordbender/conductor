@@ -4,13 +4,15 @@ import axios from 'axios';
 const defaultState = {
   list: [],
   totalHits: 0,
-  detail: {}
+  detail: {},
+  exception: {}
 };
 
 const prefix = 'WORKFLOW';
 export const setWorkflowList = createAction(`${prefix}/SET_WORKFLOW_LIST`);
 export const setWorkflowDetail = createAction(`${prefix}/SET_WORKFLOW_DETAIL`);
 export const setTotalHits = createAction(`${prefix}/SET_TOTAL_HITS`);
+export const setException = createAction(`${prefix}/SET_EXCEPTION`);
 
 export default handleActions(
   {
@@ -22,6 +24,9 @@ export default handleActions(
     },
     [setTotalHits]: (state, { payload }) => {
       return { ...state, totalHits: payload };
+    },
+    [setException]: (state, { payload }) => {
+      return { ...state, exception: payload };
     }
   },
   defaultState
