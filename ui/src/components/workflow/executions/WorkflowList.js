@@ -79,16 +79,14 @@ class Workflow extends React.Component {
   constructor(props) {
     super(props);
     const {
-      location: {
-        query: { workflowTypes = '', q = '', status = '', start = 0 }
-      }
+      location: { query: { workflowTypes = '', q = '', status = '', start = 0, h } = {} }
     } = props;
 
     this.state = {
       search: q === 'undefined' || q === '' ? '' : q,
       workflowTypes: workflowTypes === '' ? [] : workflowTypes.split(','),
       status: status !== '' ? status.split(',') : [],
-      h: this.props.location.query.h,
+      h,
       workflows: [],
       update: true,
       fullstr: true,
@@ -96,8 +94,8 @@ class Workflow extends React.Component {
     };
   }
 
-  componentWillMount() {
-    this.props.dispatch(getWorkflowDefs());
+  async componentWillMount() {
+    await this.props.getWorkflowDefs();
     this.doDispatch();
   }
 
@@ -153,7 +151,7 @@ class Workflow extends React.Component {
     );
   };
 
-  doDispatch = () => {
+  doDispatch = async () => {
     const { search = '' } = this.state;
     const query = [];
 
@@ -163,9 +161,7 @@ class Workflow extends React.Component {
     if (this.state.status.length > 0) {
       query.push(`status IN (${this.state.status.join(',')}) `);
     }
-    this.props.dispatch(
-      searchWorkflows(query.join(' AND '), search, this.state.h, this.state.fullstr, this.state.start)
-    );
+    await this.props.searchWorkflows(query.join(' AND '), search, this.state.h, this.state.fullstr, this.state.start);
   };
 
   workflowTypeChange = workflowTypes => {
@@ -229,9 +225,9 @@ class Workflow extends React.Component {
 
     let totalHits = 0;
     let found = 0;
-    if (this.props.data.hits) {
-      wfs = this.props.data.hits;
-      totalHits = this.props.data.totalHits;
+    if (this.props.hits) {
+      wfs = this.props.hits;
+      totalHits = this.props.totalHits;
       found = wfs.length;
     }
     const start = parseInt(this.state.start);
@@ -267,15 +263,12 @@ class Workflow extends React.Component {
                     onKeyPress={this.keyPress}
                     onChange={this.searchChange}
                   />
-                  &nbsp;<i className="fa fa-angle-up fa-1x" />&nbsp;&nbsp;<label className="small nobold">
-                    Free Text Query
-                  </label>
-                  &nbsp;&nbsp;<input
-                    type="checkbox"
-                    checked={this.state.fullstr}
-                    onChange={this.prefChange}
-                    ref="fullstr"
-                  />
+                  &nbsp;
+                  <i className="fa fa-angle-up fa-1x" />
+                  &nbsp;&nbsp;
+                  <label className="small nobold">Free Text Query</label>
+                  &nbsp;&nbsp;
+                  <input type="checkbox" checked={this.state.fullstr} onChange={this.prefChange} ref="fullstr" />
                   <label className="small nobold">&nbsp;Search for entire string</label>
                 </Col>
                 <Col md={4}>
@@ -287,9 +280,10 @@ class Workflow extends React.Component {
                     multiple
                     selected={this.state.workflowTypes}
                   />
-                  &nbsp;<i className="fa fa-angle-up fa-1x" />&nbsp;&nbsp;<label className="small nobold">
-                    Filter by Workflow Type
-                  </label>
+                  &nbsp;
+                  <i className="fa fa-angle-up fa-1x" />
+                  &nbsp;&nbsp;
+                  <label className="small nobold">Filter by Workflow Type</label>
                 </Col>
                 <Col md={2}>
                   <Typeahead
@@ -300,9 +294,10 @@ class Workflow extends React.Component {
                     selected={this.state.status}
                     multiple
                   />
-                  &nbsp;<i className="fa fa-angle-up fa-1x" />&nbsp;&nbsp;<label className="small nobold">
-                    Filter by Workflow Status
-                  </label>
+                  &nbsp;
+                  <i className="fa fa-angle-up fa-1x" />
+                  &nbsp;&nbsp;
+                  <label className="small nobold">Filter by Workflow Status</label>
                 </Col>
                 <Col md={2}>
                   <FormControl
@@ -315,16 +310,16 @@ class Workflow extends React.Component {
                     value={this.state.h}
                     onChange={this.hourChange}
                   />
-                  &nbsp;&nbsp;&nbsp;<Button
-                    bsStyle="success"
-                    onClick={this.searchBtnClick}
-                    className="search-label btn"
-                  >
-                    <i className="fa fa-search" />&nbsp;&nbsp;Search
+                  &nbsp;&nbsp;&nbsp;
+                  <Button bsStyle="success" onClick={this.searchBtnClick} className="search-label btn">
+                    <i className="fa fa-search" />
+                    &nbsp;&nbsp;Search
                   </Button>
-                  <br />&nbsp;&nbsp;&nbsp;<i className="fa fa-angle-up fa-1x" />&nbsp;&nbsp;<label className="small nobold">
-                    Created (in past hours)
-                  </label>
+                  <br />
+                  &nbsp;&nbsp;&nbsp;
+                  <i className="fa fa-angle-up fa-1x" />
+                  &nbsp;&nbsp;
+                  <label className="small nobold">Created (in past hours)</label>
                 </Col>
               </Row>
             </Grid>
@@ -337,14 +332,16 @@ class Workflow extends React.Component {
         <span style={{ float: 'right' }}>
           {parseInt(this.state.start, 10) >= 100 ? (
             <a onClick={this.prevPage}>
-              <i className="fa fa-backward" />&nbsp;Previous Page
+              <i className="fa fa-backward" />
+              &nbsp;Previous Page
             </a>
           ) : (
             ''
           )}
           {parseInt(this.state.start, 10) + 100 <= totalHits ? (
             <a onClick={this.nextPage}>
-              &nbsp;&nbsp;Next Page&nbsp;<i className="fa fa-forward" />
+              &nbsp;&nbsp;Next Page&nbsp;
+              <i className="fa fa-forward" />
             </a>
           ) : (
             ''
@@ -398,4 +395,11 @@ class Workflow extends React.Component {
   }
 }
 
-export default connect(state => state.workflow)(Workflow);
+export default connect(
+  state => ({
+    workflows: state.workflow.workflows,
+    hits: state.workflow.data.hits,
+    totalHits: state.workflow.data.totalHits
+  }),
+  { searchWorkflows, getWorkflowDefs }
+)(Workflow);
