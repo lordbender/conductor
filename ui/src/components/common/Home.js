@@ -7,7 +7,7 @@ import netflixImg from 'images/conductor.png';
 const Introduction = () => (
   <Jumbotron className="jumbotron">
     <div className="row">
-      <img src={netflixImg} />
+      <img src={netflixImg} alt="Netflix" />
     </div>
     <div className="row">&nbsp;</div>
   </Jumbotron>

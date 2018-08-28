@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import uuid from 'uuid';
 import { connect } from 'react-redux';
 import Typeahead from 'react-bootstrap-typeahead';
@@ -75,7 +75,7 @@ function miniDetails(cell, row) {
   );
 }
 
-class Workflow extends React.Component {
+class WorkflowList extends React.Component {
   constructor(props) {
     super(props);
     const {
@@ -99,12 +99,7 @@ class Workflow extends React.Component {
     this.doDispatch();
   }
 
-  componentWillReceiveProps({
-    workflows = [],
-    location: {
-      query: { h, start, status = '', q }
-    }
-  }) {
+  componentWillReceiveProps({ workflows = [], location: { query: { h, start, status = '', q } = {} } = {} }) {
     const workflowDefs = workflows.map(workflowDef => workflowDef.name);
 
     let search = q;
@@ -143,12 +138,12 @@ class Workflow extends React.Component {
   };
 
   urlUpdate = () => {
-    const { workflowTypes, status, start, h, search: q } = this.state;
+    // const { workflowTypes, status, start, h, search: q } = this.state;
 
-    this.props.history.pushState(
-      null,
-      `/workflow?q=${q}&h=${h}&workflowTypes=${workflowTypes}&status=${status}&start=${start}`
-    );
+    // this.props.history.push(
+    //   null,
+    //   `/workflow?q=${q}&h=${h}&workflowTypes=${workflowTypes}&status=${status}&start=${start}`
+    // );
   };
 
   doDispatch = async () => {
@@ -220,6 +215,7 @@ class Workflow extends React.Component {
   };
 
   render() {
+    // const {totalHits, hits} = this.props;
     let wfs = [];
     let filteredWfs = [];
 
@@ -230,7 +226,7 @@ class Workflow extends React.Component {
       totalHits = this.props.totalHits;
       found = wfs.length;
     }
-    const start = parseInt(this.state.start);
+    const start = parseInt(this.state.start, 10);
     let max = start + 100;
     if (found < 100) {
       max = start + found;
@@ -254,12 +250,9 @@ class Workflow extends React.Component {
               <Row className="show-grid">
                 <Col md={4}>
                   <FormControl
-                    type="input"
+                    type="text"
                     placeholder="Search"
-                    groupClassName=""
-                    ref="search"
                     value={this.state.search}
-                    labelClassName=""
                     onKeyPress={this.keyPress}
                     onChange={this.searchChange}
                   />
@@ -268,48 +261,37 @@ class Workflow extends React.Component {
                   &nbsp;&nbsp;
                   <label className="small nobold">Free Text Query</label>
                   &nbsp;&nbsp;
-                  <input type="checkbox" checked={this.state.fullstr} onChange={this.prefChange} ref="fullstr" />
+                  <input type="checkbox" checked={this.state.fullstr} onChange={this.prefChange} />
                   <label className="small nobold">&nbsp;Search for entire string</label>
                 </Col>
                 <Col md={4}>
-                  <Typeahead
-                    ref="workflowTypes"
+                  {/* <Typeahead
                     onChange={this.workflowTypeChange}
                     options={workflowNames}
                     placeholder="Filter by workflow type"
                     multiple
                     selected={this.state.workflowTypes}
-                  />
+                  /> */}
                   &nbsp;
                   <i className="fa fa-angle-up fa-1x" />
                   &nbsp;&nbsp;
                   <label className="small nobold">Filter by Workflow Type</label>
                 </Col>
                 <Col md={2}>
-                  <Typeahead
-                    ref="status"
+                  {/* <Typeahead
                     onChange={this.statusChange}
                     options={statusList}
                     placeholder="Filter by status"
                     selected={this.state.status}
                     multiple
-                  />
+                  /> */}
                   &nbsp;
                   <i className="fa fa-angle-up fa-1x" />
                   &nbsp;&nbsp;
                   <label className="small nobold">Filter by Workflow Status</label>
                 </Col>
                 <Col md={2}>
-                  <FormControl
-                    className="number-input"
-                    type="text"
-                    ref="h"
-                    groupClassName="inline"
-                    labelClassName=""
-                    label=""
-                    value={this.state.h}
-                    onChange={this.hourChange}
-                  />
+                  <FormControl className="number-input" type="text" value={this.state.h} onChange={this.hourChange} />
                   &nbsp;&nbsp;&nbsp;
                   <Button bsStyle="success" onClick={this.searchBtnClick} className="search-label btn">
                     <i className="fa fa-search" />
@@ -402,4 +384,4 @@ export default connect(
     totalHits: state.workflow.data.totalHits
   }),
   { searchWorkflows, getWorkflowDefs }
-)(Workflow);
+)(withRouter(WorkflowList));

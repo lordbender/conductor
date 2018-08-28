@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 
-import Workflow from 'components/workflow/executions/WorkflowList';
+import WorkflowList from 'components/workflow/executions/WorkflowList';
 import Event from 'components/event/EventList';
 import EventExecs from 'components/event/EventExecs';
 import WorkflowDetails from 'components/workflow/executions/WorkflowDetails';
@@ -19,7 +19,7 @@ const RoutesIndex = () => (
     <Route exact path="/workflow/metadata/:name/:version" component={WorkflowMetaDetails} />
     <Route exact path="/workflow/metadata/tasks" component={TasksMetaList} />
     <Route exact path="/workflow/queue/data" component={QueueList} />
-    <Route exact path="/workflow" component={Workflow} />
+    <Route exact path="/workflow" component={WorkflowList} />
     <Route exact path="/workflow/id/:workflowId" component={WorkflowDetails} />
     <Route exact path="/events" component={Event} />
     <Route exact path="/events/executions" component={EventExecs} />
