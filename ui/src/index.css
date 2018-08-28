@@ -48,58 +48,7 @@ body {
   padding: 0;
   height: 100%;
 }
-.ui-content {
-  padding: 0px 0px 0px 10px;
-}
-.container-fluid {
-  padding: 0px 0px 0px 0px;
-}
-.navbar-collapse {
-  background-color: #48a770;
-  border-color: #48a770;
-}
 
-.navbar-inverse .navbar-collapse{
-  border-color: #48a770;
-  color: #48a770;
-}
-.navbar-inverse {
-  background-color: #48a770;
-  border-radius: 0px;
-  width: 100%;
-  border-color: #48a770;
-}
-.navbar-inverse .navbar-nav {
-  background: #48a770;
-}
-.navbar-inverse .navbar-nav>.open>a, .navbar-inverse .navbar-nav>.open>a:focus, .navbar-inverse .navbar-nav>.open>a:hover {
-  background: #48a770;
-}
-.navbar {
-  background-color: #48a770;
-}
-.navbar .container {
-  background-color: #48a770;
-}
-
-.appMainBody {
-  float: left;
-}
-
-.navbar-header {
-  background-color: #48a770;
-}
-.navbar-nav {
-  background-color: #48a770;
-}
-
-.navbar-inverse .container {
-  width: 100%;
-  font-size: 1.1em;
-}
-.navbar-inverse .navbar-nav>li>a {
-  color: #fffffe;
-}
 .Footer {
   background: #1c2b36;
   color: #000000;
